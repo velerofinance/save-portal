@@ -74,7 +74,6 @@ export default mount({
   // basename ought to be set to '/borrow' and router will construct
   // these routes as basename+route
 
-
   '/': redirect(request => `./save${request.search}`),
 
   '/save': compose(
@@ -90,7 +89,7 @@ export default mount({
         view: <Save viewedAddress={viewedAddress} />
       };
     })
-  ),
+  )
 
   // '/trade': withView(() => <TradeLanding />)
 });
