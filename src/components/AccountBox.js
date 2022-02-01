@@ -28,8 +28,6 @@ import FullScreenAction from './CDPDisplay/FullScreenAction';
 import useCdpTypes from '../hooks/useCdpTypes';
 import { watch } from 'hooks/useObservable';
 
-const migrateUrl = 'https://oasis.app/trade/account';
-
 const StyledCardBody = styled(CardBody)`
   cursor: pointer;
 `;
@@ -202,10 +200,10 @@ const WalletBalances = ({ hasActiveAccount, closeSidebarDrawer }) => {
                     hasActiveAccount &&
                     (symbol === 'DSR' ? (
                       <Link
-                        href={`${navigation.basename}/legacy/save${url.search}`}
+                        href={`${navigation.basename}/save${url.search}`}
                         style={{
                           visibility: url.pathname.startsWith(
-                            `${navigation.basename}/legacy/save`
+                            `${navigation.basename}/save`
                           )
                             ? 'hidden'
                             : 'visible'
@@ -215,15 +213,6 @@ const WalletBalances = ({ hasActiveAccount, closeSidebarDrawer }) => {
                           {lang.actions.withdraw}
                         </ActionButton>
                       </Link>
-                    ) : symbol === 'SAI' ? (
-                      <ActionButton
-                        onClick={() => trackBtnClick('Migrate')}
-                        as="a"
-                        target="_blank"
-                        href={migrateUrl}
-                      >
-                        {lang.sidebar.migrate}
-                      </ActionButton>
                     ) : (
                       <ActionButton
                         disabled={!hasActiveAccount}

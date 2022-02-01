@@ -101,7 +101,7 @@ function SaveOverview() {
   useEffect(() => {
     if (account && account.address) {
       navigation.navigate(
-        `${navigation.basename}/legacy/save/owner/${account.address}?network=${network}`
+        `${navigation.basename}/save/owner/${account.address}?network=${network}`
       );
     }
   }, [account, navigation, network]);

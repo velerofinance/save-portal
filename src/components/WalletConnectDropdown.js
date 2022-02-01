@@ -114,11 +114,11 @@ const WalletConnectDropdown = ({ trigger, close = () => {}, ...props }) => {
   const browserIcon = useBrowserIcon(providerName);
 
   function onAccountChosen({ address }) {
-    if (url.pathname.startsWith(`${basename}/legacy/save/owner/`)) {
+    if (url.pathname.startsWith(`${basename}/save/owner/`)) {
       const urlAddress = url.pathname.split('/')[url.pathname.length - 1];
       if (address !== urlAddress) {
         navigation.navigate(
-          `${basename}/legacy/save/owner/${address}${url.search}`
+          `${basename}/save/owner/${address}${url.search}`
         );
       }
     }

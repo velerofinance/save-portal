@@ -1,17 +1,11 @@
 import React, { useEffect } from 'react';
-import { map, route, mount, withView, compose, redirect } from 'navi';
+import { route, mount, withView, compose, redirect } from 'navi';
 import { View } from 'react-navi';
 
 import Navbar from 'components/Navbar';
 import DashboardLayout from 'layouts/DashboardLayout';
-import Overview from 'pages/Overview';
-import Borrow from 'pages/Borrow';
-import BorrowWBTCLanding from 'pages/BorrowWBTCLanding';
-import BorrowMarkets from 'pages/BorrowMarkets';
 import Save from 'pages/Save';
 import SaveOverview from 'pages/SaveOverview';
-import TradeLanding from 'pages/TradeLanding';
-import CDPDisplay from 'components/CDPDisplay';
 import modals, { templates } from 'components/Modals';
 import { ModalProvider } from 'providers/ModalProvider';
 import { SidebarProvider } from 'providers/SidebarProvider';
@@ -80,50 +74,15 @@ export default mount({
   // basename ought to be set to '/borrow' and router will construct
   // these routes as basename+route
 
-  '/': compose(
-    withView(dappProvidersView),
-    withView(() => <Borrow />)
-  ),
 
-  '/owner/:viewedAddress': withDashboardLayout(
-    route(request => {
-      const { viewedAddress } = request.params;
-      return {
-        title: 'Overview',
-        view: <Overview viewedAddress={viewedAddress} />
-      };
-    })
-  ),
+  '/': redirect(request => `./save${request.search}`),
 
-  '/:cdpId': withDashboardLayout(
-    map(request => {
-      const { cdpId } = request.params;
-
-      if (!/^\d+$/.test(cdpId))
-        return route({ view: <div>invalid cdp id</div> });
-
-      return route({ title: 'CDP', view: <CDPDisplay cdpId={cdpId} /> });
-    })
-  ),
-
-  '/btc': compose(
-    withView(dappProvidersView),
-    withView(() => <BorrowWBTCLanding />)
-  ),
-
-  '/markets': compose(
-    withView(dappProvidersView),
-    withView(() => <BorrowMarkets />)
-  ),
-
-  '/legacy': redirect(request => `./save${request.search}`),
-
-  '/legacy/save': compose(
+  '/save': compose(
     withView(dappProvidersView),
     withView(() => <SaveOverview />)
   ),
 
-  '/legacy/save/owner/:viewedAddress': withDashboardLayout(
+  '/save/owner/:viewedAddress': withDashboardLayout(
     route(request => {
       const { viewedAddress } = request.params;
       return {
@@ -133,7 +92,7 @@ export default mount({
     })
   ),
 
-  '/trade': withView(() => <TradeLanding />)
+  // '/trade': withView(() => <TradeLanding />)
 });
 
 function RouteEffects({ network }) {

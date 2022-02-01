@@ -4,7 +4,7 @@
   "version": "0.2.6-rc.1",
   "license": "AGPL",
   "private": true,
-  "homepage": "/borrow-old/",
+  "homepage": "/",
   "contributors": [
     "Michael Elliot <mike@makerdao.com>",
     "Joshua Levine <joshua@makerdao.com>",
@@ -63,7 +63,8 @@
     "reinspect": "^1.0.1",
     "styled-components": "^4.1.3",
     "styled-system": "^4.0.1",
-    "window-scroll-manager": "^1.1.4"
+    "window-scroll-manager": "^1.1.4",
+    "patch-package": "^6.2.2"
   },
   "scripts": {
     "start": "NODE_ENV=development craco start",
@@ -75,7 +76,8 @@
     "ci": "yarn test --coverage",
     "now-build": "yarn build",
     "remove-sourcemaps": "rm -rf build/static/js/*.map",
-    "deploy-main": "./scripts/deploy-mainnet"
+    "deploy-main": "./scripts/deploy-mainnet",
+    "postinstall": "yarn patch-package"
   },
   "engines": {
     "node": ">=10.x.x"
