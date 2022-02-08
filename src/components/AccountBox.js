@@ -144,15 +144,15 @@ const WalletBalances = ({ hasActiveAccount, closeSidebarDrawer }) => {
     () =>
       showWalletTokens.reduceRight((acc, token) => {
         const balanceGtZero = !!(balances[token] && balances[token].gt(0));
-        if (token !== 'ETH' && token !== 'DAI' && !balanceGtZero) return acc;
+        if (token !== 'VLX' && token !== 'USDV' && !balanceGtZero) return acc;
         const symbol = token;
 
-        const tokenIsDaiOrDsr =
-          token === 'DAI' || token === 'SAI' || token === 'DSR';
-        const usdRatio = tokenIsDaiOrDsr
+        const tokenIsUsdvOrDsr =
+          token === 'USDV' || token === 'DSR';
+        const usdRatio = tokenIsUsdvOrDsr
           ? new BigNumber(1)
-          : token === 'WETH'
-          ? uniqueFeeds['ETH']
+          : token === 'WVLX'
+          ? uniqueFeeds['VLX']
           : uniqueFeeds[token];
         return [
           {

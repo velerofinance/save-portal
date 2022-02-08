@@ -10,6 +10,9 @@ import useMaker from 'hooks/useMaker';
 import { InfoContainerRow, CdpViewCard } from './CDPDisplay/subcomponents';
 import { TextBlock } from 'components/Typography';
 import { formatter } from 'utils/ui';
+// import { watch } from 'hooks/useObservable';
+// import useWalletBalances from 'hooks/useWalletBalances';
+import useWalletBalances from '../hooks/useWalletBalances';
 
 const FF_DYNAMIC_DECIMALS = false;
 function Ticker({ amount, increment, decimals, ...props }) {
@@ -51,7 +54,7 @@ const initialState = {
   fetchingEarnings: false,
   initialised: false,
   earningsDispatched: false,
-  totalDaiLockedAmountDelta: BigNumber(0),
+  totalUsdvLockedAmountDelta: BigNumber(0),
   tickerInterest: BigNumber(0),
   tickerStartTime: 0,
   cleanedState: false
@@ -61,6 +64,11 @@ function DSRInfo({ isMobile, savings }) {
   const { lang } = useLanguage();
   const { maker } = useMaker();
   const cancelled = useRef(false);
+  const balances = useWalletBalances();
+
+  console.log(balances);
+
+  initialState.balance = balances['DSR'];
 
   useEffect(() => {
     return () => (cancelled.current = true);
@@ -68,12 +76,12 @@ function DSRInfo({ isMobile, savings }) {
 
   const {
     proxyAddress,
-    annualDaiSavingsRate,
-    daiSavingsRate,
+    annualUsdvSavingsRate,
+    usdvSavingsRate,
     dateEarningsLastAccrued,
-    daiLockedInDsr,
+    usdvLockedInDsr,
     savingsRateAccumulator,
-    savingsDai
+    savingsUsdv
   } = savings;
 
   const [
@@ -86,7 +94,7 @@ function DSRInfo({ isMobile, savings }) {
       fetchedEarnings,
       fetchingEarnings,
       earningsDispatched,
-      totalDaiLockedAmountDelta,
+      totalUsdvLockedAmountDelta,
       tickerInterest,
       tickerStartTime,
       initialised,
@@ -98,11 +106,11 @@ function DSRInfo({ isMobile, savings }) {
   const decimals =
     !isMobile && FF_DYNAMIC_DECIMALS
       ? amountChange.times(100).e * -1
-      : daiLockedInDsr.eq(0)
+      : usdvLockedInDsr.eq(0)
       ? 4
-      : daiLockedInDsr.lt(1000)
+      : usdvLockedInDsr.lt(1000)
       ? 8
-      : daiLockedInDsr.lt(100000)
+      : usdvLockedInDsr.lt(100000)
       ? 6
       : 4;
 
@@ -118,14 +126,14 @@ function DSRInfo({ isMobile, savings }) {
     });
   };
 
-  const daiBalance = savingsDai.times(savingsRateAccumulator);
-  const prevDaiLocked = usePrevious(daiBalance);
+  const usdvBalance = savingsUsdv.times(savingsRateAccumulator);
+  const prevUsdvLocked = usePrevious(usdvBalance);
   const rawEarningsString = rawEarnings.toString();
 
-  const prevSavingsDai = usePrevious(savingsDai);
-  const savingsDaiChanged =
-    prevSavingsDai !== undefined &&
-    prevSavingsDai.toString() !== savingsDai.toString();
+  const prevSavingsUsdv = usePrevious(savingsUsdv);
+  const savingsUsdvChanged =
+    prevSavingsUsdv !== undefined &&
+    prevSavingsUsdv.toString() !== savingsUsdv.toString();
 
   const prevSavingsRateAccumulator = usePrevious(savingsRateAccumulator);
   const savingsRateAccChanged =
@@ -143,25 +151,25 @@ function DSRInfo({ isMobile, savings }) {
 
       if (
         savingsRateAccChanged ||
-        savingsDaiChanged ||
+        savingsUsdvChanged ||
         (fetchedEarnings && !earningsDispatched)
       ) {
-        const amountChangePerSecond = daiSavingsRate
+        const amountChangePerSecond = usdvSavingsRate
           .minus(1)
-          .times(daiLockedInDsr);
+          .times(usdvLockedInDsr);
 
         const secondsSinceDrip =
           Math.floor(Date.now() / 1000) -
           dateEarningsLastAccrued.getTime() / 1000;
 
-        const accruedInterestSinceDrip = daiLockedInDsr.gt(0)
+        const accruedInterestSinceDrip = usdvLockedInDsr.gt(0)
           ? amountChangePerSecond.times(secondsSinceDrip)
           : BigNumber(0);
 
         const amountChangePerMillisecond = amountChangePerSecond.div(1000);
-        const daiLockedAmountDelta =
-          !savingsDaiChanged && savingsRateAccChanged
-            ? daiBalance.minus(prevDaiLocked)
+        const usdvLockedAmountDelta =
+          !savingsUsdvChanged && savingsRateAccChanged
+            ? usdvBalance.minus(prevUsdvLocked)
             : BigNumber(0);
 
         if (fetchedEarnings && initialised) {
@@ -173,38 +181,38 @@ function DSRInfo({ isMobile, savings }) {
                 : BigNumber(0);
 
             dispatch({
-              balance: daiBalance.plus(accruedInterestSinceDrip),
+              balance: usdvBalance.plus(accruedInterestSinceDrip),
               amountChange: amountChangePerMillisecond,
               decimalsToShow: decimals,
               earningsDispatched: true,
-              totalDaiLockedAmountDelta: totalDaiLockedAmountDelta.plus(
-                daiLockedAmountDelta
+              totalUsdvLockedAmountDelta: totalUsdvLockedAmountDelta.plus(
+                usdvLockedAmountDelta
               ),
               tickerInterest: interestSinceTickerStart,
               earnings: rawEarnings
                 .plus(accruedInterestSinceDrip)
-                .plus(daiLockedAmountDelta)
-                .plus(totalDaiLockedAmountDelta)
+                .plus(usdvLockedAmountDelta)
+                .plus(totalUsdvLockedAmountDelta)
                 .plus(interestSinceTickerStart)
             });
           } else {
             dispatch({
-              balance: daiBalance.plus(accruedInterestSinceDrip),
+              balance: usdvBalance.plus(accruedInterestSinceDrip),
               amountChange: amountChangePerMillisecond,
               decimalsToShow: decimals,
-              totalDaiLockedAmountDelta: totalDaiLockedAmountDelta.plus(
-                daiLockedAmountDelta
+              totalUsdvLockedAmountDelta: totalUsdvLockedAmountDelta.plus(
+                usdvLockedAmountDelta
               ),
               earnings: rawEarnings
                 .plus(accruedInterestSinceDrip)
-                .plus(daiLockedAmountDelta)
-                .plus(totalDaiLockedAmountDelta)
+                .plus(usdvLockedAmountDelta)
+                .plus(totalUsdvLockedAmountDelta)
                 .plus(tickerInterest)
             });
           }
         } else {
           dispatch({
-            balance: daiBalance.plus(accruedInterestSinceDrip),
+            balance: usdvBalance.plus(accruedInterestSinceDrip),
             amountChange: amountChangePerMillisecond,
             decimalsToShow: decimals,
             tickerStartTime: Date.now(),
@@ -224,7 +232,7 @@ function DSRInfo({ isMobile, savings }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     savingsRateAccChanged,
-    savingsDaiChanged,
+    savingsUsdvChanged,
     rawEarningsString,
     fetchedEarnings,
     initialised,
@@ -232,7 +240,7 @@ function DSRInfo({ isMobile, savings }) {
   ]);
 
   return (
-    <CdpViewCard title={lang.save.dai_locked_dsr}>
+    <CdpViewCard title={lang.save.usdv_locked_dsr}>
       <Flex alignItems="flex-end" mt="s" mb="xs">
         <Ticker
           key={`${proxyAddress}.${balance.toString()}.${amountChange}.${decimalsToShow}`}
@@ -243,7 +251,7 @@ function DSRInfo({ isMobile, savings }) {
         />
         <Box>
           <Text.h4 mb=".175rem" ml="s">
-            DAI
+            USDV
           </Text.h4>
         </Box>
       </Flex>
@@ -264,16 +272,16 @@ function DSRInfo({ isMobile, savings }) {
             ) : (
               <TextMono t="body">{(0).toFixed(decimalsToShow)}</TextMono>
             )}
-            <Text ml="xs">DAI</Text>
+            <Text ml="xs">USDV</Text>
           </>
         }
       />
       <InfoContainerRow
-        title={lang.save.dai_savings_rate}
+        title={lang.save.usdv_savings_rate}
         value={
-          annualDaiSavingsRate ? (
+          annualUsdvSavingsRate ? (
             <TextMono>
-              {formatter(annualDaiSavingsRate, {
+              {formatter(annualUsdvSavingsRate, {
                 rounding: BigNumber.ROUND_HALF_UP
               })}
               %

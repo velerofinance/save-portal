@@ -1,11 +1,9 @@
 import Maker from '@makerdao/dai';
 import McdPlugin, {
-  ETH,
-  BAT,
-  USDC,
+  VLX,
+  WAG,
+  USDV,
   USD,
-  DAI,
-  SAI,
   defaultCdpTypes
 } from '@makerdao/dai-plugin-mcd';
 import trezorPlugin from '@makerdao/dai-plugin-trezor-web';
@@ -20,19 +18,14 @@ import networkConfig from './references/config';
 import { networkNameToId } from './utils/network';
 import { getQueryParamByName } from './utils/dev';
 
-import rinkebyAddresses from './references/contracts/rinkeby';
-import goerliAddresses from './references/contracts/goerli';
-import ropstenAddresses from './references/contracts/ropsten';
+import velasAddresses from './references/contracts/velas.json';
+import velastestnetAddresses from './references/contracts/velastestnet.json';
 
 let _maker;
 
 const otherNetworksOverrides = [
-  {
-    network: 'rinkeby',
-    contracts: rinkebyAddresses
-  },
-  { network: 'goerli', contracts: goerliAddresses },
-  { network: 'ropsten', contracts: ropstenAddresses }
+  { network: 'velas', contracts: velasAddresses },
+  { network: 'velastestnet', contracts: velastestnetAddresses },
 ].reduce((acc, { network, contracts }) => {
   for (const [contractName, contractAddress] of Object.entries(contracts)) {
     if (!acc[contractName]) acc[contractName] = {};
@@ -52,7 +45,7 @@ export async function instantiateMaker({
   testchainId,
   backendEnv
 }) {
-  const addressOverrides = ['rinkeby', 'ropsten', 'goerli'].some(
+  const addressOverrides = ['velastestnet', 'velas'].some(
     networkName => networkName === network
   )
     ? otherNetworksOverrides
@@ -84,12 +77,7 @@ export async function instantiateMaker({
     },
     provider: {
       url: rpcUrl,
-      type:
-        network === 'testnet'
-          ? 'HTTP'
-          : getQueryParamByName('ws') === '0'
-          ? 'HTTP'
-          : 'WEBSOCKET'
+      type: 'HTTP'
     },
     web3: {
       pollingInterval: network === 'testnet' ? 100 : null
@@ -122,4 +110,4 @@ export async function instantiateMaker({
   return maker;
 }
 
-export { USD, DAI, ETH, BAT, SAI, USDC };
+export { USD, USDV, VLX, WAG };

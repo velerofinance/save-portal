@@ -8,7 +8,7 @@ const SidebarSystem = ({ system }) => {
   const { lang } = useLanguage();
   const {
     systemCollateralization: sc,
-    totalDaiSupply,
+    totalUsdvSupply,
     totalVaultsCreated
   } = system;
 
@@ -18,8 +18,8 @@ const SidebarSystem = ({ system }) => {
       formatCollateralizationRatio(sc?.toNumber())
     ],
     [
-      lang.sidebar.save_details.total_dai_supply,
-      prettifyNumber(totalDaiSupply)
+      lang.sidebar.save_details.total_usdv_supply,
+      prettifyNumber(totalUsdvSupply)
     ],
     [
       lang.sidebar.active_cdps,

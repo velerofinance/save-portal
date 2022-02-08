@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 import { fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { DAI, ETH } from '@makerdao/dai-plugin-mcd';
+import { USDV, VLX } from '@makerdao/dai-plugin-mcd';
 import { createCurrency } from '@makerdao/currency';
 import { TestAccountProvider, mineBlocks } from '@makerdao/test-helpers';
 import Save from '../Save';
@@ -35,7 +35,7 @@ navi.useCurrentRoute.mockReturnValue({
 navi.Link = styled.a``;
 
 const AMOUNT = 180.1234567;
-const ILK = 'ETH-A';
+const ILK = 'VLX-A';
 let maker;
 let web3;
 
@@ -44,7 +44,7 @@ beforeAll(async () => {
   web3 = maker.service('web3');
   await await maker
     .service('mcd:cdpManager')
-    .openLockAndDraw(ILK, ETH(2), DAI(AMOUNT));
+    .openLockAndDraw(ILK, VLX(2), USDV(AMOUNT));
 });
 
 test('if allowance is 0, show toggle & disable input', async () => {

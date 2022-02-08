@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { prettifyCurrency } from 'utils/ui';
 import TokenIcon from './TokenIcon';
 import { ReactComponent as CaratDown } from 'images/carat-down-filled.svg';
-import { ReactComponent as DaiImg } from 'images/dai-color.svg';
+import { ReactComponent as UsdvImg } from 'images/usdv-color.svg';
 
 import useLanguage from 'hooks/useLanguage';
 import useMaker from 'hooks/useMaker';
@@ -186,7 +186,7 @@ const CapsText = styled(Text)`
   display: block;
 `;
 
-export const useDaiSavingsRate = () => {
+export const useUsdvSavingsRate = () => {
   const [rate, setRate] = useState(null);
   const { maker } = useMaker();
 
@@ -200,7 +200,7 @@ export const useDaiSavingsRate = () => {
   return rate;
 };
 
-const DaiAmount = (() => {
+const UsdvAmount = (() => {
   const GradientValue = styled(Text.h1)`
     display: inline;
     background: linear-gradient(
@@ -213,8 +213,8 @@ const DaiAmount = (() => {
     -webkit-text-fill-color: transparent;
   `;
 
-  const DaiAmountStyle = styled(Box)`
-    .dai-symbol {
+  const UsdvAmountStyle = styled(Box)`
+    .usdv-symbol {
       position: relative;
       margin-right: 22px;
       top: 5px;
@@ -222,10 +222,10 @@ const DaiAmount = (() => {
   `;
 
   return ({ children, ...props }) => (
-    <DaiAmountStyle {...props}>
-      <DaiImg className="dai-symbol" />
+    <UsdvAmountStyle {...props}>
+      <UsdvImg className="usdv-symbol" />
       <GradientValue>{children}</GradientValue>
-    </DaiAmountStyle>
+    </UsdvAmountStyle>
   );
 })();
 
@@ -240,12 +240,12 @@ const Footnote = styled(Text).attrs(() => ({
   letterSpacing: '0.5px'
 }))``;
 
-const getDaiAvailable = (locale, depositAmount, price, colRatio) => {
+const getUsdvAvailable = (locale, depositAmount, price, colRatio) => {
   if (!price) {
     return '...';
   }
-  const daiAvailable = price.times(depositAmount).dividedBy(colRatio / 100);
-  return prettifyCurrency(locale, daiAvailable, 0);
+  const usdvAvailable = price.times(depositAmount).dividedBy(colRatio / 100);
+  return prettifyCurrency(locale, usdvAvailable, 0);
 };
 
 const BorrowCalcContent = styled(Box)`
@@ -320,81 +320,22 @@ const SmartStepSlider = ({
 };
 
 const cdpTypesMetaData = {
-  'ETH-A': {
+  'VLX-A': {
     colRatio: 200,
     amountRange: [1, 350],
     amountStart: 25
   },
-  'BAT-A': {
+  'WAG-A': {
     colRatio: 200,
     amountRange: [200, 70000],
     amountStart: 600
   },
-  'MANA-A': {
-    colRatio: 240,
-    amountRange: [1000, 350000],
-    amountStart: 3000
-  },
-  'USDC-A': {
-    colRatio: 120,
-    amountRange: [200, 70000],
-    amountStart: 5000
-  },
-  'WBTC-A': {
-    colRatio: 200,
-    amountRange: [0.1, 35],
-    amountStart: 0.5
-  },
-  'TUSD-A': {
-    colRatio: 120,
-    amountRange: [200, 70000],
-    amountStart: 5000
-  },
-  'ZRX-A': {
-    colRatio: 200,
-    amountRange: [200, 70000],
-    amountStart: 100
-  },
-  'KNC-A': {
-    colRatio: 200,
-    amountRange: [200, 70000],
-    amountStart: 100
-  },
-  'COMP-A': {
-    colRatio: 200,
-    amountRange: [100, 5000],
-    amountStart: 100
-  },
-  'LRC-A': {
-    colRatio: 200,
-    amountRange: [200, 70000],
-    amountStart: 600
-  },
-  'LINK-A': {
-    colRatio: 200,
-    amountRange: [200, 70000],
-    amountStart: 100
-  },
-  'YFI-A': {
-    colRatio: 200,
-    amountRange: [0.1, 35],
-    amountStart: 0.5
-  },
-  'BAL-A': {
-    colRatio: 200,
-    amountRange: [200, 70000],
-    amountStart: 100
-  },
-  'GUSD-A': {
-    colRatio: 200,
-    amountRange: [200, 70000],
-    amountStart: 100
-  }
+
 };
 
 const BorrowCalculator = ({ prices, cdpTypesList, ...props }) => {
   const { lang } = useLanguage();
-  const [selectedSymbol, setSelectedSymbol] = useState('ETH-A');
+  const [selectedSymbol, setSelectedSymbol] = useState('VLX-A');
 
   const interfaceLocale = lang.getInterfaceLanguage();
 
@@ -477,20 +418,20 @@ const BorrowCalculator = ({ prices, cdpTypesList, ...props }) => {
         <Separator display={{ s: 'none', m: 'block' }} />
         <Box textAlign={{ s: 'left', m: 'center' }} pt="39px" pb="42px">
           <CapsText>
-            {lang.formatString(lang.borrow_landing.calc_dai_available, {
+            {lang.formatString(lang.borrow_landing.calc_usdv_available, {
               amount: (
-                <DaiAmount
+                <UsdvAmount
                   mt={{ s: '13px', m: '10px' }}
                   mb={{ s: '24px', m: '23px' }}
                   ml={{ s: '3px', m: '0' }}
                 >
-                  {getDaiAvailable(
+                  {getUsdvAvailable(
                     interfaceLocale,
                     collateralAmount,
                     selectedIlk.price,
                     selectedIlk.colRatio
                   )}
-                </DaiAmount>
+                </UsdvAmount>
               )
             })}
           </CapsText>
@@ -533,10 +474,10 @@ const SaveCalculator = (() => {
     );
   };
 
-  const StyledDaiAmount = styled(DaiAmount)`
+  const StyledUsdvAmount = styled(UsdvAmount)`
     margin-top: 11px;
     margin-bottom: 29px;
-    .dai-symbol {
+    .usdv-symbol {
       margin-right: 16px;
       transform: scale(0.92);
     }
@@ -599,19 +540,19 @@ const SaveCalculator = (() => {
   return props => {
     const { lang } = useLanguage();
     const locale = lang.getInterfaceLanguage();
-    const dsr = useDaiSavingsRate()?.toNumber();
+    const dsr = useUsdvSavingsRate()?.toNumber();
     const [initialDeposit, setInitialDeposit] = useState(100);
     const [monthlyContribution, setMonthlyContribution] = useState(0);
     const [timeSliderValue, setTimeSliderValue] = useState(0);
     const yearsEarning = timeSliderValue === 0 ? 0.5 : timeSliderValue;
-    const totalDai = getTotalSavings(
+    const totalUsdv = getTotalSavings(
       dsr,
       initialDeposit,
       monthlyContribution,
       yearsEarning
     );
-    const savings = totalDai
-      ? totalDai -
+    const savings = totalUsdv
+      ? totalUsdv -
         (initialDeposit + monthlyContribution * (yearsEarning * 12 - 1))
       : null;
 
@@ -627,7 +568,7 @@ const SaveCalculator = (() => {
               value={initialDeposit}
               onChange={value => setInitialDeposit(value)}
               displayValue={value =>
-                `${prettifyCurrency(locale, value, 0)} DAI`
+                `${prettifyCurrency(locale, value, 0)} USDV`
               }
             />
           </SliderAndLabel>
@@ -640,7 +581,7 @@ const SaveCalculator = (() => {
               value={monthlyContribution}
               onChange={value => setMonthlyContribution(value)}
               displayValue={value =>
-                `${prettifyCurrency(locale, value, 0)} DAI`
+                `${prettifyCurrency(locale, value, 0)} USDV`
               }
             />
           </SliderAndLabel>
@@ -663,14 +604,14 @@ const SaveCalculator = (() => {
         <Separator />
         <Content pt="46px" pb="58px">
           <CapsText>{lang.save_landing.calc_savings_earned}</CapsText>
-          <StyledDaiAmount>
+          <StyledUsdvAmount>
             {twoDecimalsTruncated(locale, savings)}
-          </StyledDaiAmount>
+          </StyledUsdvAmount>
           <Separator mt="4px" mb="30px" display={{ s: 'none', m: 'block' }} />
-          <CapsText>{lang.save_landing.calc_total_dai}</CapsText>
-          <StyledDaiAmount>
-            {twoDecimalsTruncated(locale, totalDai)}
-          </StyledDaiAmount>
+          <CapsText>{lang.save_landing.calc_total_usdv}</CapsText>
+          <StyledUsdvAmount>
+            {twoDecimalsTruncated(locale, totalUsdv)}
+          </StyledUsdvAmount>
           <Footnote>
             {lang.formatString(lang.save_landing.calc_footnote, {
               dsr: dsr ? ((dsr - 1) * 100).toFixed(1) : '...'

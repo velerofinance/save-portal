@@ -4,7 +4,7 @@ read -s -p "Enter Password: " PASS
 
 cleanup () {
     rm  secret.gpg
-    rm  src/references/mainnet.json
+    rm  src/references/velas.json
 }
 
 check-command () {
@@ -21,7 +21,7 @@ check-command gpg
 
 MAIN_ADDR="https://github.com/sirromdev/secrets/blob/master/mainnet.json.gpg?raw=true"
 curl -L $MAIN_ADDR --output secret.gpg
-gpg --decrypt --batch --passphrase $PASS secret.gpg > src/references/mainnet.json
+gpg --decrypt --batch --passphrase $PASS secret.gpg > src/references/velas.json
 
 if [ $? -eq 0 ]
 then

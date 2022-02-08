@@ -1,0 +1,98 @@
+diff --git a/node_modules/@makerdao/currency/dist/Currency.js b/node_modules/@makerdao/currency/dist/Currency.js
+index 05ec053..c5a4759 100644
+--- a/node_modules/@makerdao/currency/dist/Currency.js
++++ b/node_modules/@makerdao/currency/dist/Currency.js
+@@ -155,7 +155,7 @@ function assertValidOperation(method, left, right) {
+     }
+   } else {
+     switch (method) {
+-      // division between two different units results in a ratio, e.g. USD/DAI
++      // division between two different units results in a ratio, e.g. USD/USDV
+       case 'div':
+         return;
+     }
+diff --git a/node_modules/@makerdao/currency/dist/index.js b/node_modules/@makerdao/currency/dist/index.js
+index d9c59ef..4f7a20f 100644
+--- a/node_modules/@makerdao/currency/dist/index.js
++++ b/node_modules/@makerdao/currency/dist/index.js
+@@ -35,7 +35,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
+ var Currency = exports.Currency = _Currency2.Currency;
+ 
+ function createCurrency(symbol) {
+-  // This provides short syntax, e.g. ETH(6). We need a wrapper function because
++  // This provides short syntax, e.g. VLX(6). We need a wrapper function because
+   // you can't call an ES6 class consructor without `new`
+   var creatorFn = function creatorFn(amount, shift) {
+     return new CurrencyX(amount, shift);
+@@ -54,9 +54,9 @@ function createCurrency(symbol) {
+       // this.type can be used an alternative to `this.constructor` when you
+       // want to use the short syntax, e.g.:
+       //
+-      //   var foo = ETH(1);
++      //   var foo = VLX(1);
+       //   var bar = foo.type(2);
+-      //   assert(foo.plus(bar).eq(ETH(3)));
++      //   assert(foo.plus(bar).eq(VLX(3)));
+       //
+       _this.type = creatorFn;
+       return _this;
+@@ -122,8 +122,8 @@ function makeShiftedCreatorFn(creatorFn, symbol, shift) {
+ this factory function produces a function that will check input values against a
+ whitelist; it's useful if you want to accept a variety of inputs, e.g.:
+ 
+-  foo(ETH(1))
+-  foo(1, ETH)
++  foo(VLX(1))
++  foo(1, VLX)
+   foo(1)      // if you set a default unit argument
+   foo('1')    // if you set a default unit argument
+ */
+diff --git a/node_modules/@makerdao/currency/src/Currency.js b/node_modules/@makerdao/currency/src/Currency.js
+index 0cf959a..c7b4bfc 100644
+--- a/node_modules/@makerdao/currency/src/Currency.js
++++ b/node_modules/@makerdao/currency/src/Currency.js
+@@ -106,7 +106,7 @@ function assertValidOperation(method, left, right) {
+     }
+   } else {
+     switch (method) {
+-      // division between two different units results in a ratio, e.g. USD/DAI
++      // division between two different units results in a ratio, e.g. USD/USDV
+       case 'div':
+         return;
+     }
+diff --git a/node_modules/@makerdao/currency/src/index.js b/node_modules/@makerdao/currency/src/index.js
+index 8f7e2f2..ed26856 100644
+--- a/node_modules/@makerdao/currency/src/index.js
++++ b/node_modules/@makerdao/currency/src/index.js
+@@ -2,7 +2,7 @@ import { Currency as Currency_, CurrencyRatio } from './Currency';
+ export const Currency = Currency_;
+ 
+ export function createCurrency(symbol) {
+-  // This provides short syntax, e.g. ETH(6). We need a wrapper function because
++  // This provides short syntax, e.g. VLX(6). We need a wrapper function because
+   // you can't call an ES6 class consructor without `new`
+   const creatorFn = (amount, shift) => new CurrencyX(amount, shift);
+ 
+@@ -14,9 +14,9 @@ export function createCurrency(symbol) {
+       // this.type can be used an alternative to `this.constructor` when you
+       // want to use the short syntax, e.g.:
+       //
+-      //   var foo = ETH(1);
++      //   var foo = VLX(1);
+       //   var bar = foo.type(2);
+-      //   assert(foo.plus(bar).eq(ETH(3)));
++      //   assert(foo.plus(bar).eq(VLX(3)));
+       //
+       this.type = creatorFn;
+     }
+@@ -70,8 +70,8 @@ function makeShiftedCreatorFn(creatorFn, symbol, shift) {
+ this factory function produces a function that will check input values against a
+ whitelist; it's useful if you want to accept a variety of inputs, e.g.:
+ 
+-  foo(ETH(1))
+-  foo(1, ETH)
++  foo(VLX(1))
++  foo(1, VLX)
+   foo(1)      // if you set a default unit argument
+   foo('1')    // if you set a default unit argument
+ */

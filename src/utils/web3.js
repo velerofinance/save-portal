@@ -16,6 +16,7 @@ export function getWebClientProviderName() {
   if (window.imToken) return wallets.IMTOKEN;
 
   if (!window.web3 || typeof window.web3.currentProvider === 'undefined')
+    console.log(window.ethereum);
     return '';
 
   if (window.web3.currentProvider.isAlphaWallet) return wallets.ALPHA;

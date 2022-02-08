@@ -9,7 +9,7 @@ import { getColor } from 'styles/theme';
 import useLanguage from 'hooks/useLanguage';
 import groupBy from 'lodash.groupby';
 import { watch } from 'hooks/useObservable';
-import { getMaxDaiAvailable } from 'utils/cdp';
+import { getMaxUsdvAvailable } from 'utils/cdp';
 import { TokenNames } from 'utils/constants';
 
 const TABLE_PADDING = '33px';
@@ -179,7 +179,7 @@ const MarketsTable = ({ cdpTypesList, ...props }) => {
             {lang.borrow_markets.min_col_ratio}
           </Table.th>
           <Table.th width={{ s: 'unset', xl: '190px' }}>
-            {lang.dai_available}
+            {lang.usdv_available}
           </Table.th>
           <Table.th />
           <Table.th width={{ s: '0', m: TABLE_PADDING }} />
@@ -188,7 +188,7 @@ const MarketsTable = ({ cdpTypesList, ...props }) => {
       {collateralTypesData ? (
         Object.entries(cdpTypesByGem).map(([gem, cdpTypesData], rowIndex) => {
           cdpTypesData = cdpTypesData.map(ilkData => ({
-            maxDaiAvailableToGenerate: getMaxDaiAvailable(ilkData),
+            maxUsdvAvailableToGenerate: getMaxUsdvAvailable(ilkData),
             ...ilkData
           }));
 
@@ -201,17 +201,17 @@ const MarketsTable = ({ cdpTypesList, ...props }) => {
           );
           const minRatio = BigNumber.min.apply(null, colRatios);
           const maxRatio = BigNumber.max.apply(null, colRatios);
-          const daiAvailableList = cdpTypesData.map(
-            data => data.maxDaiAvailableToGenerate
+          const usdvAvailableList = cdpTypesData.map(
+            data => data.maxUsdvAvailableToGenerate
           );
-          const totalDaiAvailable = BigNumber.sum.apply(null, daiAvailableList);
+          const totalUsdvAvailable = BigNumber.sum.apply(null, usdvAvailableList);
 
           const uniPair = parseUniPair(
             gem,
-            Object.keys(cdpTypesByGem).concat(['DAI'])
+            Object.keys(cdpTypesByGem).concat(['USDV'])
           );
           const tokenName = uniPair
-            ? `Uniswap v2 ${uniPair[0]}/${uniPair[1]}`
+            ? `Wagyu ${uniPair[0]}/${uniPair[1]}`
             : TokenNames[gem];
 
           return [
@@ -251,7 +251,7 @@ const MarketsTable = ({ cdpTypesList, ...props }) => {
                   </Number>
                 </Table.td>
                 <Table.td>
-                  <Number>{prettifyNumber(totalDaiAvailable, true)}</Number>
+                  <Number>{prettifyNumber(totalUsdvAvailable, true)}</Number>
                 </Table.td>
                 <Table.td>
                   <div className="expand-btn">
@@ -294,7 +294,7 @@ const MarketsTable = ({ cdpTypesList, ...props }) => {
                     <div>
                       <Number>
                         {prettifyNumber(
-                          cdpType.maxDaiAvailableToGenerate,
+                          cdpType.maxUsdvAvailableToGenerate,
                           true
                         )}
                         {debtCeilings &&

@@ -31,7 +31,7 @@ import { ReactComponent as Feat4 } from 'images/landing/save/feature-4.svg';
 import { ReactComponent as CalculatorLeftTriangles } from 'images/landing/save/calculator-left-triangles.svg';
 import { ReactComponent as CalculatorRightTriangle } from 'images/landing/save/calculator-right-triangle.svg';
 import { Link, useNavigation } from 'react-navi';
-import { useDaiSavingsRate } from '../components/Marketing/Calculators';
+import { useUsdvSavingsRate } from '../components/Marketing/Calculators';
 import MarketingLayout from '../layouts/MarketingLayout';
 
 const HeroBackground = (() => {
@@ -96,7 +96,7 @@ function SaveOverview() {
   const navigation = useNavigation();
   const { account, network } = useMaker();
   const { lang } = useLanguage();
-  const dsr = useDaiSavingsRate()?.toNumber() - 1;
+  const dsr = useUsdvSavingsRate()?.toNumber() - 1;
 
   useEffect(() => {
     if (account && account.address) {
@@ -112,7 +112,6 @@ function SaveOverview() {
         <PageHead
           title={lang.save_landing.meta.title}
           description={lang.save_landing.meta.description}
-          imgUrl="https://oasis.app/meta/Oasis_Save.png"
         />
         <FixedHeaderTrigger>
           <ConnectHero>
@@ -195,15 +194,15 @@ function SaveOverview() {
               lang.save_landing.questions,
               lang
             )}
-            links={
-              <Link
-                href="https://community-development.makerdao.com/makerdao-mcd-faqs/faqs/dsr"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {lang.save_landing.questions.bottom_link1}
-              </Link>
-            }
+            // links={
+            //   <Link
+            //     href="https://community-development.makerdao.com/makerdao-mcd-faqs/faqs/dsr"
+            //     target="_blank"
+            //     rel="noopener noreferrer"
+            //   >
+            //     {lang.save_landing.questions.bottom_link1}
+            //   </Link>
+            // }
           />
         </QuestionsWrapper>
       </StyledPageContentLayout>

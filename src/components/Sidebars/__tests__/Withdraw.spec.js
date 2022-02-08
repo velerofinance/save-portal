@@ -2,9 +2,9 @@ import React from 'react';
 import { waitFor, fireEvent, act } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { BAT, USD, DAI } from '@makerdao/dai-plugin-mcd';
-import { fromWei } from '@makerdao/dai-plugin-mcd/dist/utils';
+import { fromWei } from '@makerdao/dai-plugin-mcd/src/utils';
 import { createCurrencyRatio } from '@makerdao/currency';
-import * as math from '@makerdao/dai-plugin-mcd/dist/math';
+import * as math from '@makerdao/dai-plugin-mcd/src/math';
 
 import Withdraw from '../Withdraw';
 import { renderWithMaker } from '../../../../test/helpers/render';

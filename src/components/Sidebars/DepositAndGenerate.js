@@ -13,19 +13,19 @@ import useWalletBalances from 'hooks/useWalletBalances';
 import useTokenAllowance from 'hooks/useTokenAllowance';
 import Info from './shared/Info';
 import InfoContainer from './shared/InfoContainer';
-import { DAI } from '@makerdao/dai-plugin-mcd';
+import { USDV } from '@makerdao/dai-plugin-mcd';
 import { getCurrency } from 'utils/cdp';
 import BigNumber from 'bignumber.js';
 import { decimalRules } from '../../styles/constants';
 import RatioDisplay, { RatioDisplayTypes } from 'components/RatioDisplay';
 
-const { long, medium } = decimalRules;
+const { long } = decimalRules;
 
-export function calcDaiAvailable(collateralValue, debtValue, liquidationRatio) {
+export function calcUsdvAvailable(collateralValue, debtValue, liquidationRatio) {
   const maxSafeDebtValue = collateralValue.div(liquidationRatio);
   return debtValue.lt(maxSafeDebtValue)
-    ? DAI(maxSafeDebtValue.minus(debtValue))
-    : DAI(0);
+    ? USDV(maxSafeDebtValue.minus(debtValue))
+    : USDV(0);
 }
 
 const DepositAndGenerate = ({ vault, reset }) => {
@@ -85,7 +85,7 @@ const DepositAndGenerate = ({ vault, reset }) => {
   const calculatedCollateralValue = calculatedCollateralAmount.times(
     collateralTypePrice
   );
-  const calculatedDaiAvailable = calcDaiAvailable(
+  const calculatedUsdvAvailable = calcUsdvAvailable(
     calculatedCollateralValue.toBigNumber(),
     debtValue,
     liquidationRatio.toBigNumber()
@@ -99,7 +99,7 @@ const DepositAndGenerate = ({ vault, reset }) => {
   ] = useValidatedInput(
     '',
     {
-      maxFloat: formatter(calculatedDaiAvailable),
+      maxFloat: formatter(calculatedUsdvAvailable),
       minFloat: 0,
       isFloat: true,
       custom: {
@@ -153,7 +153,7 @@ const DepositAndGenerate = ({ vault, reset }) => {
         vault.id,
         vaultType,
         currency(depositAmount),
-        DAI(generateAmount)
+        USDV(generateAmount)
       );
     reset();
   };
@@ -189,7 +189,7 @@ const DepositAndGenerate = ({ vault, reset }) => {
           value={generateAmount}
           min="0"
           onChange={onGenerateAmountChange}
-          placeholder="0.00 DAI"
+          placeholder="0.00 USDV"
           failureMessage={generateFailureMessage}
         />
       </Grid>
@@ -220,7 +220,7 @@ const DepositAndGenerate = ({ vault, reset }) => {
         />
         <Info
           title={lang.action_sidebar.maximum_available_to_generate}
-          body={`${formatter(calculatedDaiAvailable, { precision: long })} DAI`}
+          body={`${formatter(calculatedUsdvAvailable, { precision: long })} USDV`}
         />
         <Info
           title={lang.action_sidebar.new_liquidation_price}

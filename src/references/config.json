@@ -1,65 +1,36 @@
 {
-  "supportedNetworkIds": ["1337", "999", "5", "4", "3", "42", "1"],
+  "supportedNetworkIds": ["106", "111"],
   "rpcUrls": {
     "1": "https://mainnet.infura.io/v3/516f946979bc4fa187edcdc164e0bac0",
     "42": "https://kovan.infura.io/v3/516f946979bc4fa187edcdc164e0bac0",
-    "3": "https://ropsten.infura.io/v3/516f946979bc4fa187edcdc164e0bac0",
-    "4": "https://rinkeby.infura.io/v3/516f946979bc4fa187edcdc164e0bac0",
-    "5": "https://goerli.infura.io/v3/516f946979bc4fa187edcdc164e0bac0",
-    "999": "http://localhost:2000",
-    "1337": "http://localhost:2000"
+    "106": "https://evmexplorer.velas.com/rpc",
+    "111": "https://evmexplorer.testnet.velas.com/rpc"
   },
   "wsRpcUrls": {
     "1": "wss://mainnet.infura.io/ws/v3/516f946979bc4fa187edcdc164e0bac0",
     "42": "wss://kovan.infura.io/ws/v3/516f946979bc4fa187edcdc164e0bac0",
-    "3": "wss://ropsten.infura.io/ws/v3/516f946979bc4fa187edcdc164e0bac0",
-    "4": "wss://rinkeby.infura.io/ws/v3/516f946979bc4fa187edcdc164e0bac0",
-    "5": "wss://goerli.infura.io/ws/v3/516f946979bc4fa187edcdc164e0bac0"
+    "106": "wss://api.velas.com",
+    "111": "wss://api.testnet.velas.com/"
   },
   "networkNames": {
     "1": "mainnet",
     "42": "kovan",
-    "3": "ropsten",
-    "4": "rinkeby",
-    "5": "goerli",
-    "999": "testnet",
-    "1337": "testnet"
+    "106": "velas",
+    "111": "velastestnet"
   },
   "networkDisplayNames": {
     "1": "Mainnet",
     "42": "Kovan Testnet",
-    "3": "Ropsten Testnet",
-    "4": "Rinkeby Testnet",
-    "5": "Goerli Testnet",
-    "999": "Testchain",
-    "1337": "Ex_Testchain"
+    "106": "Velas",
+    "111": "Velas Testnet"
   },
-  "defaultNetwork": "1",
-  "exTestchainApiUrl": "http://localhost:4000/chain",
+  "defaultNetwork": "106",
   "showWalletTokens": [
-    "DAI",
+    "USDV",
     "DSR",
-    "ETH",
-    "SAI",
-    "WETH",
-    "BAT",
-    "USDC",
-    "WBTC",
-    "TUSD",
-    "KNC",
-    "ZRX",
-    "MANA",
-    "USDT",
-    "PAXUSD",
-    "COMP",
-    "LRC",
-    "LINK",
-    "YFI",
-    "BAL",
-    "GUSD",
-    "UNI",
-    "RENBTC",
-    "AAVE"
+    "VLX",
+    "WAG",
+    "WVLX"
   ],
   "trackingPages": {
     "Overview": "Overview",

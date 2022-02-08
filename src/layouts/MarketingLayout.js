@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled, { ThemeProvider, css } from 'styled-components';
 import { Helmet } from 'react-helmet';
-import { Link, useNavigation } from 'react-navi';
+import { Link, useCurrentRoute, useNavigation } from 'react-navi';
 import useLanguage from 'hooks/useLanguage';
 import CookieNotice from '../components/CookieNotice';
 import { hot } from 'react-hot-loader/root';
@@ -58,30 +58,31 @@ const MainNavStyle = styled(Nav)`
 const MainNav = ({ onLinkClicked, ...props }) => {
   const { lang } = useLanguage();
   const navigation = useNavigation();
+  const { url } = useCurrentRoute();
   return (
     <MainNavStyle {...props}>
+      {/*<Link*/}
+      {/*  href={`${navigation.basename}/trade`}*/}
+      {/*  activeStyle={{ fontWeight: 'bold' }}*/}
+      {/*  onClick={() => onLinkClicked && onLinkClicked()}*/}
+      {/*>*/}
+      {/*  {lang.navbar.trade}*/}
+      {/*</Link>*/}
       <Link
-        href={`${navigation.basename}/trade`}
-        activeStyle={{ fontWeight: 'bold' }}
-        onClick={() => onLinkClicked && onLinkClicked()}
-      >
-        {lang.navbar.trade}
-      </Link>
-      <Link
-        href={`${navigation.basename}`}
+        href={`https://vaults.velero.finance/${url.search}`}
         activeStyle={{ fontWeight: 'bold' }}
         onClick={() => onLinkClicked && onLinkClicked()}
       >
         {lang.navbar.borrow}
       </Link>
       <Link
-        href={'https://oasis.app'}
+        href={`${navigation.basename}`}
         activeStyle={{ fontWeight: 'bold' }}
         onClick={() => onLinkClicked && onLinkClicked()}
       >
         {lang.navbar.save}
       </Link>
-      <Link href="https://blog.oasis.app/">{lang.navbar.blog}</Link>
+      {/*<Link href="https://blog.oasis.app/">{lang.navbar.blog}</Link>*/}
     </MainNavStyle>
   );
 };

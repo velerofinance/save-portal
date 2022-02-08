@@ -10,10 +10,10 @@ import useCheckRoute from 'hooks/useCheckRoute';
 const SidebarGlobalPanel = () => {
   const { cdpTypesList } = useCdpTypes();
   const prices = watch.collateralTypesPrices(cdpTypesList);
-  const totalDaiSupply = watch.totalDaiSupply();
+  const totalUsdvSupply = watch.totalUsdvSupply();
   const totalVaultsCreated = watch.vaultsCreated();
-  const totalDaiLockedInDsr = watch.totalDaiLockedInDsr();
-  const annualDaiSavingsRate = watch.annualDaiSavingsRate();
+  const totalUsdvLockedInDsr = watch.totalUsdvLockedInDsr();
+  const annualUsdvSavingsRate = watch.annualUsdvSavingsRate();
   const systemCollateralization = watch.systemCollateralization(cdpTypesList);
 
   const { isBorrow, isSave } = useCheckRoute();
@@ -26,7 +26,7 @@ const SidebarGlobalPanel = () => {
           {isBorrow && (
             <SidebarSystem
               system={{
-                totalDaiSupply,
+                totalUsdvSupply,
                 totalVaultsCreated,
                 systemCollateralization
               }}
@@ -35,9 +35,9 @@ const SidebarGlobalPanel = () => {
           {isSave && (
             <SidebarDetails
               system={{
-                totalDaiSupply,
-                totalDaiLockedInDsr,
-                annualDaiSavingsRate
+                totalUsdvSupply,
+                totalUsdvLockedInDsr,
+                annualUsdvSavingsRate
               }}
             />
           )}
@@ -48,10 +48,10 @@ const SidebarGlobalPanel = () => {
     isBorrow,
     isSave,
     prices,
-    totalDaiSupply,
+    totalUsdvSupply,
     totalVaultsCreated,
-    totalDaiLockedInDsr,
-    annualDaiSavingsRate,
+    totalUsdvLockedInDsr,
+    annualUsdvSavingsRate,
     systemCollateralization
   ]);
 };

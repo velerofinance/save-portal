@@ -16,7 +16,7 @@ export default function useTokenAllowance(tokenSymbol) {
 
   const hasFetchedAllowance = proxyAddress === null || allowance !== undefined;
   const hasAllowance =
-    tokenSymbol === 'ETH' ||
+    tokenSymbol === 'VLX' ||
     (allowance !== undefined && allowance !== null && !allowance.eq(0));
 
   const hasSufficientAllowance = value =>

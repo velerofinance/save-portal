@@ -1,5 +1,5 @@
 import React from 'react';
-import { DAI } from '@makerdao/dai-plugin-mcd';
+import { USDV } from '@makerdao/dai-plugin-mcd';
 import { Text, Input, Grid, Button } from '@makerdao/ui-components-core';
 import debug from 'debug';
 
@@ -21,7 +21,7 @@ import ProxyAllowanceToggle from 'components/ProxyAllowanceToggle';
 import SetMax from 'components/SetMax';
 import { BigNumber } from 'bignumber.js';
 import { decimalRules } from '../../styles/constants';
-const { long, medium } = decimalRules;
+const { long } = decimalRules;
 
 const log = debug('maker:Sidebars/Payback');
 
@@ -30,9 +30,9 @@ const Payback = ({ vault, reset }) => {
   const { lang } = useLanguage();
   const { maker } = useMaker();
   const balances = useWalletBalances();
-  const daiBalance = balances.DAI;
+  const usdvBalance = balances.USDV;
 
-  const { hasAllowance, hasSufficientAllowance } = useTokenAllowance('DAI');
+  const { hasAllowance, hasSufficientAllowance } = useTokenAllowance('USDV');
   const { hasProxy } = useProxy();
 
   let { debtValue, debtFloor, collateralAmount } = vault;
@@ -49,7 +49,7 @@ const Payback = ({ vault, reset }) => {
   const [amount, setAmount, onAmountChange, amountErrors] = useValidatedInput(
     '',
     {
-      maxFloat: Math.min(daiBalance, debtValue),
+      maxFloat: Math.min(usdvBalance, debtValue),
       minFloat: 0,
       isFloat: true,
       custom: {
@@ -59,8 +59,8 @@ const Payback = ({ vault, reset }) => {
     },
     {
       maxFloat: amount => {
-        return greaterThan(amount, daiBalance)
-          ? lang.formatString(lang.action_sidebar.insufficient_balance, 'DAI')
+        return greaterThan(amount, usdvBalance)
+          ? lang.formatString(lang.action_sidebar.insufficient_balance, 'USDV')
           : lang.action_sidebar.cannot_payback_more_than_owed;
       },
       dustLimit: () =>
@@ -71,7 +71,7 @@ const Payback = ({ vault, reset }) => {
               subtract(debtValue, debtFloor)
             ),
       allowanceInvalid: () =>
-        lang.formatString(lang.action_sidebar.invalid_allowance, 'DAI')
+        lang.formatString(lang.action_sidebar.invalid_allowance, 'USDV')
     }
   );
 
@@ -79,7 +79,7 @@ const Payback = ({ vault, reset }) => {
 
   // Don't enter more than the user's balance if there isn't enough to cover the debt.
   const maxPaybackAmount =
-    debtValue && daiBalance && minimum(debtValue, daiBalance);
+    debtValue && usdvBalance && minimum(debtValue, usdvBalance);
   const setMax = () => setAmount(maxPaybackAmount.toString());
 
   const payback = async () => {
@@ -94,7 +94,7 @@ const Payback = ({ vault, reset }) => {
     else log('Calling wipe()');
     wipeAll
       ? cdpManager.wipeAll(vault.id, owner)
-      : cdpManager.wipe(vault.id, DAI(amount), owner);
+      : cdpManager.wipe(vault.id, USDV(amount), owner);
     reset();
   };
 
@@ -104,12 +104,12 @@ const Payback = ({ vault, reset }) => {
   const liquidationPrice = undercollateralized
     ? BigNumber(0)
     : vault.calculateLiquidationPrice({
-        debtValue: DAI(debtValue.minus(amountToPayback))
+        debtValue: USDV(debtValue.minus(amountToPayback))
       });
   const collateralizationRatio = undercollateralized
     ? Infinity
     : vault.calculateCollateralizationRatio({
-        debtValue: DAI(debtValue.minus(amountToPayback))
+        debtValue: USDV(debtValue.minus(amountToPayback))
       });
   return (
     <Grid gridRowGap="m">
@@ -123,7 +123,7 @@ const Payback = ({ vault, reset }) => {
           value={amount}
           min="0"
           onChange={onAmountChange}
-          placeholder="0.00 DAI"
+          placeholder="0.00 USDV"
           failureMessage={amountErrors}
           data-testid="payback-input"
           after={
@@ -139,7 +139,7 @@ const Payback = ({ vault, reset }) => {
           }
         />
       </Grid>
-      <ProxyAllowanceToggle token="DAI" trackBtnClick={trackBtnClick} />
+      <ProxyAllowanceToggle token="USDV" trackBtnClick={trackBtnClick} />
       <Grid gridTemplateColumns="1fr 1fr" gridColumnGap="s">
         <Button
           disabled={!valid}
@@ -165,13 +165,13 @@ const Payback = ({ vault, reset }) => {
       </Grid>
       <InfoContainer>
         <Info
-          title={lang.action_sidebar.dai_balance}
-          body={`${daiBalance &&
-            formatter(daiBalance, { precision: long })} DAI`}
+          title={lang.action_sidebar.usdv_balance}
+          body={`${usdvBalance &&
+            formatter(usdvBalance, { precision: long })} USDV`}
         />
         <Info
-          title={lang.action_sidebar.dai_debt}
-          body={`${formatter(debtValue, { precision: long })} DAI`}
+          title={lang.action_sidebar.usdv_debt}
+          body={`${formatter(debtValue, { precision: long })} USDV`}
         />
         <Info
           title={lang.action_sidebar.new_liquidation_price}

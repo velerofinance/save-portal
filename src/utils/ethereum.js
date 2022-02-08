@@ -1,5 +1,5 @@
 import round from 'lodash/round';
-import { ETH, BAT } from '../maker';
+import { VLX, WAG } from '../maker';
 import BigNumber from 'bignumber.js';
 import Web3 from 'web3';
 
@@ -37,12 +37,12 @@ export const toNum = async promise => {
 export const addTokenBalances = async account => {
   return {
     ...account,
-    ethBalance: round(
-      await toNum(window.maker.getToken(ETH).balanceOf(account.address)),
+    vlxBalance: round(
+      await toNum(window.maker.getToken(VLX).balanceOf(account.address)),
       2
     ),
-    batBalance: round(
-      await toNum(window.maker.getToken(BAT).balanceOf(account.address)),
+    wagBalance: round(
+      await toNum(window.maker.getToken(WAG).balanceOf(account.address)),
       2
     )
   };
@@ -54,19 +54,20 @@ export const isValidAddressString = addressString =>
 export const isValidTxString = txString =>
   /^0x([A-Fa-f0-9]{64})$/.test(txString);
 
-export const etherscanLink = (string, network = 'mainnet') => {
-  const pathPrefix = network === 'mainnet' ? '' : `${network}.`;
+export const etherscanLink = (string, network = 'velas') => {
+  const pathPrefix = network === 'velas' ? '' : 'testnet.';
   if (isValidAddressString(string))
-    return `https://${pathPrefix}etherscan.io/address/${string}`;
+    return `https://${pathPrefix}evmexplorer.velas.com/address/${string}`;
   else if (isValidTxString(string))
-    return `https://${pathPrefix}etherscan.io/tx/${string}`;
-  else throw new Error(`Can't create Etherscan link for "${string}"`);
+    return `https://${pathPrefix}evmexplorer.velas.com/tx/${string}`;
+  else throw new Error(`Can't create evmexplorer.velas.com link for "${string}"`);
 };
 
 export async function checkEthereumProvider() {
   let provider;
   if (typeof window.ethereum !== 'undefined') {
-    await window.ethereum.enable();
+    // await window.ethereum.enable();
+    await window.eth_requestAccounts;
     provider = window.ethereum;
   } else if (window.web3) {
     provider = window.web3.currentProvider;

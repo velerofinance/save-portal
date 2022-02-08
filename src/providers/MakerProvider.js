@@ -9,7 +9,7 @@ import {
   browserEthereumProviderAddress
 } from '../utils/ethereum';
 import LoadingLayout from '../layouts/LoadingLayout';
-import schemas from '@makerdao/dai-plugin-mcd/dist/schemas';
+import schemas from '@makerdao/dai-plugin-mcd/src/schemas';
 import useObservable, { watch } from 'hooks/useObservable';
 import useAnalytics from 'hooks/useAnalytics';
 import debug from 'debug';
@@ -35,7 +35,7 @@ function MakerProvider({
   const [maker, setMaker] = useState(null);
   const [watcher, setWatcher] = useState(null);
 
-  const navNetwork = network === 'kovan-osm' ? 'kovan' : network;
+  const navNetwork = network === 'velastestnet-osm' ? 'velastestnet' : network;
   const navigation = useNavigation(navNetwork, mocks);
 
   const { trackBtnClick } = useAnalytics();
@@ -62,14 +62,14 @@ function MakerProvider({
 
     if (browserProvider.networkId !== networkId)
       throw new Error(
-        'browser ethereum provider and URL network param do not match.'
+        'browser velas provider and URL network param do not match.'
       );
     if (
       !browserProvider.address ||
       !browserProvider.address.match(/^0x[a-fA-F0-9]{40}$/)
     )
       throw new Error(
-        'browser ethereum provider providing incorrect or non-existent address'
+        'browser velas provider providing incorrect or non-existent address'
       );
 
     let existingAccount;

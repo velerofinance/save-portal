@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import assert from 'assert';
 import { waitFor, fireEvent } from '@testing-library/react';
-import { DAI, ETH } from '@makerdao/dai-plugin-mcd';
+import { USDV, VLX } from '@makerdao/dai-plugin-mcd';
 import { mineBlocks, TestAccountProvider } from '@makerdao/test-helpers';
 
 import DSRDeposit from '../DSRDeposit';
@@ -23,7 +23,7 @@ jest.mock('react-navi', () => ({
 const { click, change } = fireEvent;
 
 const AMOUNT = 180.1234567;
-const ILK = 'ETH-A';
+const ILK = 'VLX-A';
 let maker;
 let web3;
 let noProxyAcct;
@@ -33,11 +33,11 @@ beforeAll(async () => {
   maker = await instantiateMaker({ network: 'testnet' });
   await await maker
     .service('mcd:cdpManager')
-    .openLockAndDraw(ILK, ETH(5), DAI(AMOUNT));
+    .openLockAndDraw(ILK, VLX(5), USDV(AMOUNT));
 
   TestAccountProvider.setIndex(345);
   noProxyAcct = TestAccountProvider.nextAccount();
-  const token = maker.getToken(DAI.symbol);
+  const token = maker.getToken(USDV.symbol);
   await token.transfer(noProxyAcct.address, AMOUNT);
 });
 

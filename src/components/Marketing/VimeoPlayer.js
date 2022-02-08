@@ -94,7 +94,7 @@ const VimeoPlayerStyle = styled(Box)`
 
 const VimeoPlayer = ({ showVideo, id, onCloseVideo }) => {
   useEffect(() => {
-    const iframe = document.querySelector('#dai-video');
+    const iframe = document.querySelector('#usdv-video');
     if (!showVideo || !iframe) {
       return;
     }
@@ -128,7 +128,7 @@ const VimeoPlayer = ({ showVideo, id, onCloseVideo }) => {
           </div>
           <div className="video-container">
             <Video
-              id="dai-video"
+              id="usdv-video"
               className="video"
               src={`https://player.vimeo.com/video/${id}?portrait=0&byline=0&autoplay=1&controls=1`}
               frameborder="0"

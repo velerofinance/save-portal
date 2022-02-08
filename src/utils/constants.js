@@ -36,7 +36,7 @@ export const FeatureFlags = {
 
 export const NotificationList = {
   CLAIM_COLLATERAL: { name: 'claimCollateral', priority: 2 },
-  CLAIM_DAI: { name: 'claimDAI', priority: 2 },
+  CLAIM_USDV: { name: 'claimUSDV', priority: 2 },
   NON_VAULT_OWNER: { name: 'nonVaultOwner', priority: 1 },
   NON_OVERVIEW_OWNER: { name: 'nonOverviewOwner', priority: 1 },
   EMERGENCY_SHUTDOWN_ACTIVE: { name: 'emergencyShutdownActive', priority: 1 },
@@ -48,31 +48,14 @@ export const NotificationList = {
 };
 
 export const VendorErrors = {
-  ENABLE_CONTRACT_DATA: 'EthAppPleaseEnableContractData',
+  ENABLE_CONTRACT_DATA: 'VlxAppPleaseEnableContractData',
   USER_REJECTED: 'TransportStatusError',
   TIMEOUT: 'TransportError'
 };
 
 export const TokenNames = {
-  ETH: 'Ether',
-  BAT: 'Basic Attention Token',
-  WBTC: 'Wrapped Bitcoin',
-  USDC: 'USD Coin',
-  MANA: 'Mana',
-  ZRX: '0x',
-  KNC: 'Kyber Network',
-  TUSD: 'TrueUSD',
-  USDT: 'Tether',
-  PAXUSD: 'Paxos Standard',
-  LRC: 'Loopring',
-  COMP: 'Compound',
-  LINK: 'Chainlink',
-  YFI: 'yearn.finance',
-  BAL: 'Balancer',
-  GUSD: 'Gemini Dollar',
-  UNI: 'Uniswap',
-  RENBTC: 'renBTC',
-  AAVE: 'Aave'
+  VLX: 'Velas',
+  WAG: 'Wagyu',
 };
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';

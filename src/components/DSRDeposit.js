@@ -13,7 +13,7 @@ import useProxy from 'hooks/useProxy';
 
 const initialState = {
   step: 0,
-  daiToJoin: '',
+  usdvToJoin: '',
   depositAmount: '',
   txState: ''
 };
@@ -56,7 +56,7 @@ function DSRDeposit({ onClose, hideOnboarding }) {
         props => <DSRDepositCheckProxy {...props} />
       ],
       [
-        lang.dsr_deposit.screen_titles.deposit_dai,
+        lang.dsr_deposit.screen_titles.deposit_usdv,
         props => <DSRDepositCreate {...props} />
       ],
       [

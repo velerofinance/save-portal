@@ -4,23 +4,23 @@ import assert from 'assert';
 import BigNumber from 'bignumber.js';
 
 export function cdpParamsAreValid(
-  { gemsToLock, daiToDraw },
+  { gemsToLock, usdvToDraw },
   userGemBalance,
   debtFloor,
-  daiAvailable
+  usdvAvailable
 ) {
-  // must not open empty cdp or cdp with no dai value
-  if (!gemsToLock || !daiToDraw) return false; // we technically can do this, but TODO figure out if we should
-  // must lock collateral in order to draw dai
-  if (!!daiToDraw && !gemsToLock) return false;
+  // must not open empty cdp or cdp with no usdv value
+  if (!gemsToLock || !usdvToDraw) return false; // we technically can do this, but TODO figure out if we should
+  // must lock collateral in order to draw usdv
+  if (!!usdvToDraw && !gemsToLock) return false;
   // must be positive
-  if (parseFloat(daiToDraw) < 0 || parseFloat(gemsToLock) < 0) return false;
+  if (parseFloat(usdvToDraw) < 0 || parseFloat(gemsToLock) < 0) return false;
   // must have enough tokens
   if (greaterThan(gemsToLock, userGemBalance)) return false;
   // must open a cdp above the liquidation threshold
-  if (greaterThan(daiToDraw, daiAvailable)) return false;
-  // must draw more dai than the dust limit
-  if (greaterThan(debtFloor, daiToDraw)) return false;
+  if (greaterThan(usdvToDraw, usdvAvailable)) return false;
+  // must draw more usdv than the dust limit
+  if (greaterThan(debtFloor, usdvToDraw)) return false;
   return true;
 }
 
@@ -31,7 +31,7 @@ export function getCurrency(cdp) {
   return ilk.currency;
 }
 
-export function getMaxDaiAvailable({ collateralDebtAvailable }) {
+export function getMaxUsdvAvailable({ collateralDebtAvailable }) {
   const collateralDebtAvailableBN = collateralDebtAvailable?.toBigNumber();
 
   return collateralDebtAvailableBN?.lt(0)

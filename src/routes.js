@@ -11,7 +11,6 @@ import { ModalProvider } from 'providers/ModalProvider';
 import { SidebarProvider } from 'providers/SidebarProvider';
 import { ToggleProvider } from 'providers/ToggleProvider';
 import MakerProvider from 'providers/MakerProvider';
-import VaultsProvider from 'providers/VaultsProvider';
 import TransactionManagerProvider from 'providers/TransactionManagerProvider';
 import NotificationProvider from 'providers/NotificationProvider';
 import config from 'references/config';
@@ -38,15 +37,13 @@ const dappProvidersView = async request => {
       <RouteEffects network={network} />
       <TransactionManagerProvider>
         <NotificationProvider>
-          <VaultsProvider viewedAddress={viewedAddress}>
-            <ToggleProvider>
-              <ModalProvider modals={modals} templates={templates}>
-                <SidebarProvider>
-                  <View />
-                </SidebarProvider>
-              </ModalProvider>
-            </ToggleProvider>
-          </VaultsProvider>
+          <ToggleProvider>
+            <ModalProvider modals={modals} templates={templates}>
+              <SidebarProvider>
+                <View />
+              </SidebarProvider>
+            </ModalProvider>
+          </ToggleProvider>
         </NotificationProvider>
       </TransactionManagerProvider>
     </MakerProvider>

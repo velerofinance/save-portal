@@ -16,11 +16,11 @@ import {
   CdpViewCard
 } from 'components/CDPDisplay/subcomponents';
 import FullScreenAction from 'components/CDPDisplay/FullScreenAction';
-import History from 'components/CDPDisplay/History';
+// import History from 'components/CDPDisplay/History';
 import DSRInfo from 'components/DSRInfo';
 import useMaker from 'hooks/useMaker';
 import useLanguage from 'hooks/useLanguage';
-import useDsrEventHistory from 'hooks/useDsrEventHistory';
+// import useDsrEventHistory from 'hooks/useDsrEventHistory';
 import useModal from 'hooks/useModal';
 import useAnalytics from 'hooks/useAnalytics';
 import useSidebar from 'hooks/useSidebar';
@@ -29,12 +29,13 @@ import useNotification from 'hooks/useNotification';
 import { watch } from 'hooks/useObservable';
 import useEmergencyShutdown from 'hooks/useEmergencyShutdown';
 
-import { FeatureFlags } from 'utils/constants';
+// import { FeatureFlags } from 'utils/constants';
 import { NotificationList, SAFETY_LEVELS } from 'utils/constants';
 
 function Save({ viewedAddress }) {
   const { lang } = useLanguage();
-  const { account, network } = useMaker();
+  const { account } = useMaker();
+  // const { account, network } = useMaker();
   const { addNotification, deleteNotifications } = useNotification();
   const { emergencyShutdownActive } = useEmergencyShutdown();
 
@@ -58,9 +59,9 @@ function Save({ viewedAddress }) {
 
   const { trackBtnClick } = useAnalytics('DsrView');
 
-  const { events, isLoading } = FeatureFlags.FF_DSR_HISTORY
-    ? useDsrEventHistory(viewedProxyAddress) // eslint-disable-line react-hooks/rules-of-hooks
-    : {};
+  // const { events, isLoading } = FeatureFlags.FF_DSR_HISTORY
+  //   ? useDsrEventHistory(viewedProxyAddress) // eslint-disable-line react-hooks/rules-of-hooks
+  //   : {};
 
   const [showOnboarding, setShowOnboarding] = useState(true);
   const hideOnboarding = useCallback(() => {
@@ -82,7 +83,7 @@ function Save({ viewedAddress }) {
       showSidebar(props);
     }
   };
-  const annualDaiSavingsRate = watch.annualDaiSavingsRate();
+  const annualUsdvSavingsRate = watch.annualUsdvSavingsRate();
 
   return (
     <PageContentLayout>
@@ -101,8 +102,8 @@ function Save({ viewedAddress }) {
                 {lang.formatString(
                   lang.save.get_started_title,
                   `${
-                    annualDaiSavingsRate
-                      ? annualDaiSavingsRate.toFixed(2)
+                    annualUsdvSavingsRate
+                      ? annualUsdvSavingsRate.toFixed(2)
                       : '0.00'
                   }%`
                 )}
@@ -182,15 +183,15 @@ function Save({ viewedAddress }) {
               />
             </CdpViewCard>
           </Grid>
-          {FeatureFlags.FF_DSR_HISTORY && (
-            <History
-              title={lang.save.tx_history}
-              rows={events}
-              network={network}
-              isLoading={isLoading}
-              emptyTableMessage={lang.save.start_earning}
-            />
-          )}
+          {/*{FeatureFlags.FF_DSR_HISTORY && (*/}
+          {/*  <History*/}
+          {/*    title={lang.save.tx_history}*/}
+          {/*    rows={events}*/}
+          {/*    network={network}*/}
+          {/*    isLoading={isLoading}*/}
+          {/*    emptyTableMessage={lang.save.start_earning}*/}
+          {/*  />*/}
+          {/*)}*/}
         </>
       ) : (
         <LoadingLayout />

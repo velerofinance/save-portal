@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import LanguageProvider from '../../src/providers/LanguageProvider';
-import VaultsProvider from '../../src/providers/VaultsProvider';
 import NotificationProvider from '../../src/providers/NotificationProvider';
 import TransactionManagerProvider from '../../src/providers/TransactionManagerProvider';
 import TestMakerProvider from './TestMakerProvider';
@@ -70,11 +69,4 @@ export async function renderWithAccount(children, ...args) {
   );
   await waitFor(() => account);
   return { ...output, account };
-}
-
-export function renderWithVaults(children, viewedAddress) {
-  return renderWithMaker(
-    <VaultsProvider viewedAddress={viewedAddress}>{children}</VaultsProvider>,
-    {}
-  );
 }

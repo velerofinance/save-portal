@@ -37,13 +37,13 @@ const Send = ({ token, trackBtnClick, reset }) => {
   const [gasCost, setGasCost] = useState(ZERO);
   const [destAddress, setDestAddress] = useState('');
 
-  const minAmount = token === 'ETH' ? gasCost : ZERO;
-  const maxAmount = token === 'ETH' ? balance.minus(gasCost) : balance;
+  const minAmount = token === 'VLX' ? gasCost : ZERO;
+  const maxAmount = token === 'VLX' ? balance.minus(gasCost) : balance;
 
   const displayToken = token;
 
-  const inRangeAndEth = _val =>
-    token === 'ETH' && _val.gt(ZERO) && _val.lte(balance);
+  const inRangeAndVlx = _val =>
+    token === 'VLX' && _val.gt(ZERO) && _val.lte(balance);
 
   const mapBN = cb => val => cb(BigNumber(val));
 
@@ -52,24 +52,24 @@ const Send = ({ token, trackBtnClick, reset }) => {
     {
       custom: {
         invalid: mapBN(val => val.isNaN()),
-        minEth: mapBN(val => gasCost.gt(balance) && inRangeAndEth(val)),
+        minVlx: mapBN(val => gasCost.gt(balance) && inRangeAndVlx(val)),
         min: mapBN(val => val.lt(ZERO)),
-        maxEth: mapBN(
-          val => val.plus(gasCost).gt(balance) && inRangeAndEth(val)
+        maxVlx: mapBN(
+          val => val.plus(gasCost).gt(balance) && inRangeAndVlx(val)
         ),
         max: mapBN(val => val.gt(balance))
       }
     },
     {
       invalid: _ => lang.action_sidebar.invalid_input,
-      minEth: _ =>
+      minVlx: _ =>
         lang.formatString(
           lang.action_sidebar.invalid_min_gas,
           `${gasCost} ${displayToken}`
         ),
       min: _ =>
         lang.formatString(lang.action_sidebar.invalid_min_amount, displayToken),
-      maxEth: _ =>
+      maxVlx: _ =>
         lang.formatString(
           lang.action_sidebar.invalid_max_gas,
           `${gasCost.plus(BigNumber(amount))} ${displayToken}`
@@ -123,7 +123,7 @@ const Send = ({ token, trackBtnClick, reset }) => {
   const valid =
     amount !== '' && destAddress !== '' && amountIsValid && destAddressIsValid;
 
-  const showSetMax = token !== 'ETH' || balance.gte(gasCost);
+  const showSetMax = token !== 'VLX' || balance.gte(gasCost);
 
   const transfer = async () => {
     maker.getToken(token).transfer(destAddress, amount);

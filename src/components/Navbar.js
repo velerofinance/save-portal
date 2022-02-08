@@ -1,7 +1,7 @@
 import React from 'react';
 import SaveNav from 'components/SaveNav';
 import BorrowNav from 'components/BorrowNav';
-import TradeNav from 'components/TradeNav';
+// import TradeNav from 'components/TradeNav';
 import { Flex, Grid, Box } from '@makerdao/ui-components-core';
 import useMaker from 'hooks/useMaker';
 
@@ -14,7 +14,7 @@ const Navbar = ({ viewedAddress }) => {
       <Grid mx="0px">
         <SaveNav account={account} />
         <BorrowNav viewedAddress={viewedAddress} account={account} />
-        <TradeNav />
+        {/*<TradeNav />*/}
       </Grid>
     </Box>
   );

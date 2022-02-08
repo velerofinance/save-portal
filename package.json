@@ -1,15 +1,12 @@
 {
-  "name": "mcd-cdp-portal",
-  "description": "The primary web interface for interacting with the Multi-Collateral Dai smart contract system.",
+  "name": "save-portal",
+  "description": "The primary web interface for interacting with the Multi-Collateral Usdv smart contract system.",
   "version": "0.2.6-rc.1",
   "license": "AGPL",
   "private": true,
   "homepage": "/",
   "contributors": [
-    "Michael Elliot <mike@makerdao.com>",
-    "Joshua Levine <joshua@makerdao.com>",
-    "Adrian le Bas <adrian@makerdao.com>",
-    "Fernando D. Tiberti <fertiberti@gmail.com>"
+    "Dipper Pines <imdipperpines3199@gmail.com>"
   ],
   "dependencies": {
     "@craco/craco": "^5.6.4",

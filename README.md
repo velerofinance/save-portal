@@ -3,7 +3,7 @@
 ![Build Workflow](https://github.com/OasisDex/mcd-cdp-portal//actions/workflows/aws-prod.yml/badge.svg)
 
 
-## The official Maker dapp for managing Vaults and generating Dai
+## The official Velero dapp for managing Vaults and generating Usdv
 
 ### Prerequisites
 
@@ -15,7 +15,7 @@ Have installed:
 
 ### Installation
 
-1. `git clone https://github.com/makerdao/mcd-cdp-portal.git`
+1. `git clone https://github.com/velerofinance/save-portal.git`
 
 2. `cd mcd-cdp-portal && yarn`
 
@@ -38,10 +38,3 @@ For hardware wallet support:
    2. If using the testchain repo directly, run `scripts/launch`
 
 3) Navigate to `http://localhost:3000?network=testnet&simplePriceFeeds=1`
-
-_see [this PR](https://github.com/makerdao/mcd-cdp-portal/pull/26) for more details_
-
-[build]: https://circleci.com/gh/makerdao/mcd-cdp-portal.svg?style=svg
-[build-url]: https://circleci.com/gh/makerdao/mcd-cdp-portal
-[cover]: https://codecov.io/gh/makerdao/mcd-cdp-portal/branch/master/graph/badge.svg
-[cover-url]: https://codecov.io/gh/makerdao/mcd-cdp-portal

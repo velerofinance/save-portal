@@ -1,6 +1,6 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
-import { DAI } from '@makerdao/dai-plugin-mcd';
+import { USDV } from '@makerdao/dai-plugin-mcd';
 import { Text, Input, Grid, Button } from '@makerdao/ui-components-core';
 import Info from './shared/Info';
 import InfoContainer from './shared/InfoContainer';
@@ -16,7 +16,7 @@ import {
   prettifyNumber
 } from 'utils/ui';
 import { decimalRules } from '../../styles/constants';
-const { long, medium } = decimalRules;
+const { long } = decimalRules;
 
 const Generate = ({ vault, reset }) => {
   const { trackBtnClick } = useAnalytics('Generate', 'Sidebar');
@@ -25,7 +25,7 @@ const Generate = ({ vault, reset }) => {
 
   let {
     debtValue,
-    daiAvailable,
+    usdvAvailable,
     vaultType,
     debtFloor,
     collateralAmount,
@@ -48,7 +48,7 @@ const Generate = ({ vault, reset }) => {
   const [amount, , onAmountChange, failureMessage] = useValidatedInput(
     '',
     {
-      maxFloat: formatter(daiAvailable),
+      maxFloat: formatter(usdvAvailable),
       minFloat: 0,
       isFloat: true,
       custom: {
@@ -76,10 +76,10 @@ const Generate = ({ vault, reset }) => {
       ? BigNumber(amount)
       : BigNumber(0);
 
-  const undercollateralized = daiAvailable.lt(amountToGenerate);
+  const undercollateralized = usdvAvailable.lt(amountToGenerate);
 
   const generate = () => {
-    maker.service('mcd:cdpManager').draw(vault.id, vaultType, DAI(amount));
+    maker.service('mcd:cdpManager').draw(vault.id, vaultType, USDV(amount));
     reset();
   };
 
@@ -103,7 +103,7 @@ const Generate = ({ vault, reset }) => {
           value={amount}
           min="0"
           onChange={onAmountChange}
-          placeholder="0.00 DAI"
+          placeholder="0.00 USDV"
           failureMessage={failureMessage}
           data-testid="generate-input"
         />
@@ -143,7 +143,7 @@ const Generate = ({ vault, reset }) => {
       <InfoContainer>
         <Info
           title={lang.action_sidebar.maximum_available_to_generate}
-          body={`${formatter(daiAvailable, { precision: long })} DAI`}
+          body={`${formatter(usdvAvailable, { precision: long })} USDV`}
         />
         <Info
           title={lang.action_sidebar.new_liquidation_price}

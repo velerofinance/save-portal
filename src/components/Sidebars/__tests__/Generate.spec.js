@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, act } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import * as math from '@makerdao/dai-plugin-mcd/dist/math';
+import * as math from '@makerdao/dai-plugin-mcd/src/math';
 import { BAT, DAI, USD } from '@makerdao/dai-plugin-mcd';
 import BigNumber from 'bignumber.js';
 
