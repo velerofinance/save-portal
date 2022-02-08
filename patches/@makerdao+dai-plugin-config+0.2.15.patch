@@ -1,0 +1,43 @@
+diff --git a/node_modules/@makerdao/dai-plugin-config/dist/contracts/abiMap.json b/node_modules/@makerdao/dai-plugin-config/dist/contracts/abiMap.json
+index aa986ef..c5e7846 100644
+--- a/node_modules/@makerdao/dai-plugin-config/dist/contracts/abiMap.json
++++ b/node_modules/@makerdao/dai-plugin-config/dist/contracts/abiMap.json
+@@ -45,7 +45,7 @@
+   "COL4": "Token4",
+   "COL5": "Token5",
+   "CDP_MANAGER": "DssCdpManager",
+-  "ETH": "WETH9_",
++  "VLX": "WETH9_",
+   "GET_CDPS": "GetCdps",
+   "MCD_FLIP_*": "Flipper",
+   "MCD_JOIN_*": "GemJoin",
+diff --git a/node_modules/@makerdao/dai-plugin-config/dist/contracts/abis/MulticallHelper.json b/node_modules/@makerdao/dai-plugin-config/dist/contracts/abis/MulticallHelper.json
+index 1786a2b..cd16cec 100644
+--- a/node_modules/@makerdao/dai-plugin-config/dist/contracts/abis/MulticallHelper.json
++++ b/node_modules/@makerdao/dai-plugin-config/dist/contracts/abis/MulticallHelper.json
+@@ -16,7 +16,7 @@
+     "inputs": [
+       { "internalType": "address", "name": "addr", "type": "address" }
+     ],
+-    "name": "getEthBalance",
++    "name": "getUsdvBalance",
+     "outputs": [
+       { "internalType": "uint256", "name": "balance", "type": "uint256" }
+     ],
+diff --git a/node_modules/@makerdao/dai-plugin-config/dist/contracts/tokens.json b/node_modules/@makerdao/dai-plugin-config/dist/contracts/tokens.json
+index 2c55dfc..e5c0fe1 100644
+--- a/node_modules/@makerdao/dai-plugin-config/dist/contracts/tokens.json
++++ b/node_modules/@makerdao/dai-plugin-config/dist/contracts/tokens.json
+@@ -1,9 +1,9 @@
+ {
+   "IOU": { "name": "IOU", "decimals": 18 },
+   "MCD_GOV": { "name": "MKR", "decimals": 18 },
+-  "MCD_DAI": { "name": "MDAI", "decimals": 18 },
+-  "ETH": { "name": "MWETH", "decimals": 18 },
+-  "GNT": { "name": "GNT", "decimals": 18 },
++  "MCD_USDV": { "name": "MUSDV", "decimals": 18 },
++  "VLX": { "name": "MWVLX", "decimals": 18 },
++  "WAG": { "name": "WAG", "decimals": 18 },
+   "BAT": { "name": "BAT", "decimals": 18 },
+   "DGD": { "name": "DGD", "decimals": 9 },
+   "ZRX": { "name": "ZRX", "decimals": 18 },

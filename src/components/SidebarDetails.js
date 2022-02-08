@@ -7,28 +7,30 @@ import BigNumber from 'bignumber.js';
 const SidebarDetails = ({ system, savings }) => {
   const { lang } = useLanguage();
 
-  const TOTAL_DAI_SUPPLY = ({ system }) => [
-    lang.sidebar.save_details.total_dai_supply,
-    prettifyNumber(system.totalDaiSupply)
+  const TOTAL_USDV_SUPPLY = ({ system }) => [
+    lang.sidebar.save_details.total_usdv_supply,
+    prettifyNumber(system.totalUsdvSupply)
   ];
 
-  const TOTAL_SAVINGS_DAI = ({ system }) => [
-    lang.sidebar.save_details.total_savings_dai,
-    prettifyNumber(system.totalDaiLockedInDsr)
+  const TOTAL_SAVINGS_USDV = ({ system }) => [
+    lang.sidebar.save_details.total_savings_usdv,
+    prettifyNumber(system.totalUsdvLockedInDsr)
   ];
 
-  const DAI_SAVINGS_RATE = ({ system }) => [
-    lang.sidebar.save_details.dai_savings_rate,
-    system.annualDaiSavingsRate
-      ? formatter(system.annualDaiSavingsRate, {
+  const USDV_SAVINGS_RATE = ({ system }) => [
+    lang.sidebar.save_details.usdv_savings_rate,
+    system.annualUsdvSavingsRate
+      ? formatter(system.annualUsdvSavingsRate, {
           rounding: BigNumber.ROUND_HALF_UP
         }) + '%'
       : ''
   ];
 
-  const params = [TOTAL_DAI_SUPPLY, TOTAL_SAVINGS_DAI, DAI_SAVINGS_RATE].map(
-    f => f({ system, savings })
-  );
+  const params = [
+    TOTAL_USDV_SUPPLY,
+    TOTAL_SAVINGS_USDV,
+    USDV_SAVINGS_RATE
+  ].map(f => f({ system, savings }));
 
   return (
     <Card css={'overflow:hidden;'} pt="2xs">

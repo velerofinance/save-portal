@@ -11,9 +11,9 @@ import useValidatedInput from '../../hooks/useValidatedInput';
 import SetMax from '../SetMax';
 import useTokenAllowance from 'hooks/useTokenAllowance';
 
-function DepositDaiForm({
+function DepositUsdvForm({
   depositAmount,
-  daiBalance,
+  usdvBalance,
   onDepositAmountChange,
   setDepositMax,
   depositAmountErrors
@@ -22,9 +22,9 @@ function DepositDaiForm({
 
   const fields = [
     [
-      lang.formatString(lang.dsr_deposit.deposit_form_title, 'DAI'),
+      lang.formatString(lang.dsr_deposit.deposit_form_title, 'USDV'),
       <Input
-        key="daiinput"
+        key="usdvinput"
         name="gemsToLock"
         after={<SetMax onClick={setDepositMax} />}
         type="number"
@@ -32,13 +32,13 @@ function DepositDaiForm({
         onChange={onDepositAmountChange}
         failureMessage={depositAmountErrors}
         min="0"
-        placeholder="0 DAI"
+        placeholder="0 USDV"
         data-testid="dsrdeposit-onboarding-input"
       />,
       <Box key="ba">
         <Text t="subheading">{lang.your_balance} </Text>
         <Text t="caption" display="inline-block" ml="s" color="darkLavender">
-          {prettifyNumber(daiBalance)} {'DAI'}
+          {prettifyNumber(usdvBalance)} {'USDV'}
         </Text>
       </Box>
     ]
@@ -74,9 +74,9 @@ function DepositDaiForm({
 const DSRDepositCreate = ({ dispatch, onClose }) => {
   const { lang } = useLanguage();
   const balances = useWalletBalances();
-  const { DAI } = balances;
-  const daiBalance = DAI.toFixed(6);
-  const { hasSufficientAllowance } = useTokenAllowance('DAI');
+  const { USDV } = balances;
+  const usdvBalance = USDV.toFixed(6);
+  const { hasSufficientAllowance } = useTokenAllowance('USDV');
 
   const [
     depositAmount,
@@ -88,26 +88,26 @@ const DSRDepositCreate = ({ dispatch, onClose }) => {
     {
       isFloat: true,
       minFloat: 0.0,
-      maxFloat: DAI && DAI.toNumber(),
+      maxFloat: USDV && USDV.toNumber(),
       custom: {
         allowanceInvalid: value => !hasSufficientAllowance(value)
       }
     },
     {
       maxFloat: () =>
-        lang.formatString(lang.action_sidebar.insufficient_balance, 'DAI'),
+        lang.formatString(lang.action_sidebar.insufficient_balance, 'USDV'),
       allowanceInvalid: () =>
-        lang.formatString(lang.action_sidebar.invalid_allowance, 'DAI')
+        lang.formatString(lang.action_sidebar.invalid_allowance, 'USDV')
     }
   );
 
   const setDepositMax = useCallback(() => {
-    if (DAI) {
-      setDepositAmount(DAI.toNumber().toString());
+    if (USDV) {
+      setDepositAmount(USDV.toNumber().toString());
     } else {
       setDepositAmount('0');
     }
-  }, [DAI, setDepositAmount]);
+  }, [USDV, setDepositAmount]);
   return (
     <Box
       maxWidth="1040px"
@@ -116,13 +116,13 @@ const DSRDepositCreate = ({ dispatch, onClose }) => {
       `}
     >
       <ScreenHeader
-        title={lang.formatString(lang.save.deposit_dai)}
-        text={lang.save.deposit_dai_subheading}
+        title={lang.formatString(lang.save.deposit_usdv)}
+        text={lang.save.deposit_usdv_subheading}
       />
       <Grid gridGap="m" my="l">
         <Card px={{ s: 'm', m: 'xl' }} py={{ s: 'm', m: 'l' }}>
-          <DepositDaiForm
-            daiBalance={daiBalance}
+          <DepositUsdvForm
+            usdvBalance={usdvBalance}
             setDepositMax={setDepositMax}
             depositAmount={depositAmount}
             onDepositAmountChange={onDepositAmountChange}

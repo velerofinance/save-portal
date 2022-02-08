@@ -3,13 +3,13 @@ import BigNumber from 'bignumber.js';
 
 const initialState = {
   proxyAddress: undefined,
-  annualDaiSavingsRate: BigNumber(0),
-  daiSavingsRate: BigNumber(1),
+  annualUsdvSavingsRate: BigNumber(0),
+  usdvSavingsRate: BigNumber(1),
   dateEarningsLastAccrued: Date.now(),
-  daiLockedInDsr: BigNumber(0),
+  usdvLockedInDsr: BigNumber(0),
   fetchedSavings: false,
   savingsRateAccumulator: undefined,
-  savingsDai: BigNumber(0)
+  savingsUsdv: BigNumber(0)
 };
 
 function useSavings(address) {
@@ -19,7 +19,7 @@ function useSavings(address) {
     : {
         fetchedSavings: true,
         ...savings,
-        daiLockedInDsr: savings?.daiLockedInDsr?.toBigNumber()
+        usdvLockedInDsr: savings?.usdvLockedInDsr?.toBigNumber()
       };
 }
 

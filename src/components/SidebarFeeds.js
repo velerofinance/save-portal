@@ -18,7 +18,7 @@ const SidebarFeeds = ({ feeds }) => {
     <Card pt="sm" css={'overflow:hidden;'}>
       <Flex justifyContent="space-between" alignContent="center" px="s" pt="">
         <Text t="h4">{lang.sidebar.price_feeds}</Text>
-        <Link href={'https://makerdao.com/feeds'} target="_blank">
+        <Link href={'https://vaults.velero.finance/oracles'} target="_blank">
           <Text t="p5" color="steel" fontSize="s2">
             {lang.sidebar.view_price_feeds}
           </Text>

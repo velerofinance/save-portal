@@ -1,7 +1,5 @@
 import React from 'react';
 import { Box, Flex, Text } from '@makerdao/ui-components-core';
-import { Link } from 'react-navi';
-import { Routes } from '../../utils/constants';
 
 const Subheader = () => {
   return (
@@ -12,19 +10,7 @@ const Subheader = () => {
         justifyContent="space-between"
         alignItems="center"
       >
-        <Text t="h5">Savings Dai</Text>
-        <Flex
-          p="xs"
-          border="1px solid lightgray"
-          borderRadius="3px"
-          width="200px"
-        >
-          <Link href={`/${Routes.BORROW}`}>
-            <Text fontSize="1.2rem" color="lightgray">
-              {'> /borrow'}
-            </Text>
-          </Link>
-        </Flex>
+        <Text t="h5">Savings Usdv</Text>
       </Flex>
     </Box>
   );

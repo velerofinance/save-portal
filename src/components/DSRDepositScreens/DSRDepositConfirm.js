@@ -17,7 +17,7 @@ import ScreenFooter from '../ScreenFooter';
 import ScreenHeader from '../ScreenHeader';
 import { prettifyNumber } from 'utils/ui';
 import { TxLifecycle } from 'utils/constants';
-import { DAI } from '@makerdao/dai-plugin-mcd';
+import { USDV } from '@makerdao/dai-plugin-mcd';
 
 import { ReactComponent as ExternalLinkIcon } from 'images/external-link.svg';
 import { ReactComponent as SpaceshipIllustration } from 'images/spaceship.svg';
@@ -31,7 +31,7 @@ const DSRDepositConfirmSummary = ({
   const [hasReadTOS, setHasReadTOS] = useState(false);
 
   const rows = [
-    [lang.save.deposit_amount, `${prettifyNumber(depositAmount)} DAI`]
+    [lang.save.deposit_amount, `${prettifyNumber(depositAmount)} USDV`]
   ];
   return (
     <Box
@@ -42,7 +42,7 @@ const DSRDepositConfirmSummary = ({
     >
       <ScreenHeader
         title={lang.dsr_deposit.confirm_title}
-        text={lang.save.deposit_dai_subheading}
+        text={lang.save.deposit_usdv_subheading}
       />
       <Card py={{ s: 'm', m: 'l' }} px={{ s: 'm', m: 'xl' }} my="l">
         <Grid>
@@ -181,26 +181,26 @@ const DSRDepositWait = ({ hash, onClose, txState }) => {
 const DSRDepositConfirm = ({ dispatch, onClose, depositAmount, txState }) => {
   const { maker } = useMaker();
 
-  const [depositDaiTxHash, setDepositDaiTxHash] = useState(null);
+  const [depositUsdvTxHash, setDepositUsdvTxHash] = useState(null);
 
   async function capturedDispatch(payload) {
     const { type } = payload;
     if (type !== 'increment-step') return dispatch(payload);
 
-    const txObject = maker.service('mcd:savings').join(DAI(depositAmount));
+    const txObject = maker.service('mcd:savings').join(USDV(depositAmount));
 
     const txMgr = maker.service('transactionManager');
     txMgr.listen(txObject, {
-      pending: tx => setDepositDaiTxHash(tx.hash),
+      pending: tx => setDepositUsdvTxHash(tx.hash),
       confirmed: () => dispatch({ type: 'transaction-confirmed' })
     });
     await txMgr.confirm(txObject, 1);
   }
 
-  if (depositDaiTxHash)
+  if (depositUsdvTxHash)
     return (
       <DSRDepositWait
-        hash={depositDaiTxHash}
+        hash={depositUsdvTxHash}
         onClose={onClose}
         txState={txState}
       />

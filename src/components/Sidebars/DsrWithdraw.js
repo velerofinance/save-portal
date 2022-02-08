@@ -9,7 +9,7 @@ import useValidatedInput from 'hooks/useValidatedInput';
 import useLanguage from 'hooks/useLanguage';
 import useAnalytics from 'hooks/useAnalytics';
 import ProxyAllowanceToggle from 'components/ProxyAllowanceToggle';
-import { DAI } from '@makerdao/dai-plugin-mcd';
+import { USDV } from '@makerdao/dai-plugin-mcd';
 import SetMax from 'components/SetMax';
 import { BigNumber } from 'bignumber.js';
 import { safeToFixed } from '../../utils/ui';
@@ -19,12 +19,12 @@ const DsrWithdraw = ({ savings, reset }) => {
   const { lang } = useLanguage();
   const { maker } = useMaker();
 
-  const displaySymbol = DAI.symbol;
+  const displaySymbol = USDV.symbol;
 
-  const { daiLockedInDsr } = savings;
-  const { DAI: daiBalance } = useWalletBalances();
+  const { usdvLockedInDsr } = savings;
+  const { USDV: usdvBalance } = useWalletBalances();
   const { hasAllowance, hasSufficientAllowance } = useTokenAllowance(
-    DAI.symbol
+    USDV.symbol
   );
   const [withdrawMaxFlag, setWithdrawMaxFlag] = useState(false);
 
@@ -38,7 +38,7 @@ const DsrWithdraw = ({ savings, reset }) => {
     {
       isFloat: true,
       minFloat: 0.0,
-      maxFloat: daiLockedInDsr && daiLockedInDsr.toNumber(),
+      maxFloat: usdvLockedInDsr && usdvLockedInDsr.toNumber(),
       custom: {
         allowanceInvalid: value => !hasSufficientAllowance(value)
       }
@@ -55,19 +55,19 @@ const DsrWithdraw = ({ savings, reset }) => {
   );
 
   const setWithdrawMax = useCallback(() => {
-    if (daiLockedInDsr && !daiLockedInDsr.eq(0)) {
-      setWithdrawAmount(daiLockedInDsr.toFixed(18).replace(/\.?0+$/, ''));
+    if (usdvLockedInDsr && !usdvLockedInDsr.eq(0)) {
+      setWithdrawAmount(usdvLockedInDsr.toFixed(18).replace(/\.?0+$/, ''));
       setWithdrawMaxFlag(true);
     } else {
       setWithdrawAmount('');
     }
-  }, [daiLockedInDsr, setWithdrawAmount]);
+  }, [usdvLockedInDsr, setWithdrawAmount]);
 
   const withdraw = () => {
-    if (withdrawMaxFlag || new BigNumber(withdrawAmount).eq(daiLockedInDsr)) {
+    if (withdrawMaxFlag || new BigNumber(withdrawAmount).eq(usdvLockedInDsr)) {
       maker.service('mcd:savings').exitAll();
     } else {
-      maker.service('mcd:savings').exit(DAI(withdrawAmount));
+      maker.service('mcd:savings').exit(USDV(withdrawAmount));
     }
     reset();
   };
@@ -90,7 +90,7 @@ const DsrWithdraw = ({ savings, reset }) => {
           disabled={!hasAllowance}
           type="number"
           min="0"
-          placeholder="0 DAI"
+          placeholder="0 USDV"
           value={withdrawAmount}
           onChange={e => {
             if (withdrawMaxFlag) setWithdrawMaxFlag(false);
@@ -113,7 +113,7 @@ const DsrWithdraw = ({ savings, reset }) => {
         />
       </Grid>
       <ProxyAllowanceToggle
-        token="DAI"
+        token="USDV"
         onlyShowAllowance={true}
         trackBtnClick={trackBtnClick}
       />
@@ -143,12 +143,15 @@ const DsrWithdraw = ({ savings, reset }) => {
       </Grid>
       <InfoContainer>
         <Info
-          title={lang.action_sidebar.dai_balance}
-          body={`${safeToFixed(daiBalance, 7)} ${displaySymbol}`}
+          title={lang.action_sidebar.usdv_balance}
+          body={`${safeToFixed(usdvBalance, 7)} ${displaySymbol}`}
         />
         <Info
           title={lang.action_sidebar.locked_dsr}
-          body={`${safeToFixed(daiLockedInDsr.toNumber(), 7)} ${displaySymbol}`}
+          body={`${safeToFixed(
+            usdvLockedInDsr.toNumber(),
+            7
+          )} ${displaySymbol}`}
         />
       </InfoContainer>
     </Grid>

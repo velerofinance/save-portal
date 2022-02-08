@@ -8,6 +8,6 @@ export default function useCheckRoute() {
     isBorrow:
       url.pathname.startsWith(`${navigation.basename}/owner`) ||
       cdpRouteRegex.test(`${url.pathname}`),
-    isSave: url.pathname.startsWith(`${navigation.basename}/legacy/save`)
+    isSave: url.pathname.startsWith(`${navigation.basename}/save`)
   };
 }

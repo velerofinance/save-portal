@@ -28,8 +28,6 @@ import FullScreenAction from './CDPDisplay/FullScreenAction';
 import useCdpTypes from '../hooks/useCdpTypes';
 import { watch } from 'hooks/useObservable';
 
-const migrateUrl = 'https://oasis.app/trade/account';
-
 const StyledCardBody = styled(CardBody)`
   cursor: pointer;
 `;
@@ -146,15 +144,14 @@ const WalletBalances = ({ hasActiveAccount, closeSidebarDrawer }) => {
     () =>
       showWalletTokens.reduceRight((acc, token) => {
         const balanceGtZero = !!(balances[token] && balances[token].gt(0));
-        if (token !== 'ETH' && token !== 'DAI' && !balanceGtZero) return acc;
+        if (token !== 'VLX' && token !== 'USDV' && !balanceGtZero) return acc;
         const symbol = token;
 
-        const tokenIsDaiOrDsr =
-          token === 'DAI' || token === 'SAI' || token === 'DSR';
-        const usdRatio = tokenIsDaiOrDsr
+        const tokenIsUsdvOrDsr = token === 'USDV' || token === 'DSR';
+        const usdRatio = tokenIsUsdvOrDsr
           ? new BigNumber(1)
-          : token === 'WETH'
-          ? uniqueFeeds['ETH']
+          : token === 'WVLX'
+          ? uniqueFeeds['VLX']
           : uniqueFeeds[token];
         return [
           {
@@ -202,10 +199,10 @@ const WalletBalances = ({ hasActiveAccount, closeSidebarDrawer }) => {
                     hasActiveAccount &&
                     (symbol === 'DSR' ? (
                       <Link
-                        href={`${navigation.basename}/legacy/save${url.search}`}
+                        href={`${navigation.basename}/save${url.search}`}
                         style={{
                           visibility: url.pathname.startsWith(
-                            `${navigation.basename}/legacy/save`
+                            `${navigation.basename}/save`
                           )
                             ? 'hidden'
                             : 'visible'
@@ -215,15 +212,6 @@ const WalletBalances = ({ hasActiveAccount, closeSidebarDrawer }) => {
                           {lang.actions.withdraw}
                         </ActionButton>
                       </Link>
-                    ) : symbol === 'SAI' ? (
-                      <ActionButton
-                        onClick={() => trackBtnClick('Migrate')}
-                        as="a"
-                        target="_blank"
-                        href={migrateUrl}
-                      >
-                        {lang.sidebar.migrate}
-                      </ActionButton>
                     ) : (
                       <ActionButton
                         disabled={!hasActiveAccount}

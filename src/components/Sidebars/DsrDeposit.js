@@ -9,7 +9,7 @@ import useValidatedInput from 'hooks/useValidatedInput';
 import useLanguage from 'hooks/useLanguage';
 import useAnalytics from 'hooks/useAnalytics';
 import ProxyAllowanceToggle from 'components/ProxyAllowanceToggle';
-import { DAI } from '@makerdao/dai-plugin-mcd';
+import { USDV } from '@makerdao/dai-plugin-mcd';
 import SetMax from 'components/SetMax';
 import { safeToFixed } from '../../utils/ui';
 
@@ -18,11 +18,11 @@ const DsrDeposit = ({ savings, reset }) => {
   const { lang } = useLanguage();
   const { maker } = useMaker();
 
-  const { symbol } = DAI;
-  const displaySymbol = 'DAI';
+  const { symbol } = USDV;
+  const displaySymbol = 'USDV';
 
-  const { daiLockedInDsr } = savings;
-  const { DAI: daiBalance } = useWalletBalances();
+  const { usdvLockedInDsr } = savings;
+  const { USDV: usdvBalance } = useWalletBalances();
   const { hasAllowance, hasSufficientAllowance } = useTokenAllowance(symbol);
 
   const [
@@ -35,29 +35,29 @@ const DsrDeposit = ({ savings, reset }) => {
     {
       isFloat: true,
       minFloat: 0.0,
-      maxFloat: daiBalance && daiBalance.toNumber(),
+      maxFloat: usdvBalance && usdvBalance.toNumber(),
       custom: {
         allowanceInvalid: value => !hasSufficientAllowance(value)
       }
     },
     {
       maxFloat: () =>
-        lang.formatString(lang.action_sidebar.insufficient_balance, 'DAI'),
+        lang.formatString(lang.action_sidebar.insufficient_balance, 'USDV'),
       allowanceInvalid: () =>
-        lang.formatString(lang.action_sidebar.invalid_allowance, 'DAI')
+        lang.formatString(lang.action_sidebar.invalid_allowance, 'USDV')
     }
   );
 
   const setDepositMax = useCallback(() => {
-    if (daiBalance && !daiBalance.eq(0)) {
-      setDepositAmount(daiBalance.toString());
+    if (usdvBalance && !usdvBalance.eq(0)) {
+      setDepositAmount(usdvBalance.toString());
     } else {
       setDepositAmount('');
     }
-  }, [daiBalance, setDepositAmount]);
+  }, [usdvBalance, setDepositAmount]);
 
   const deposit = () => {
-    maker.service('mcd:savings').join(DAI(depositAmount));
+    maker.service('mcd:savings').join(USDV(depositAmount));
     reset();
   };
 
@@ -81,7 +81,7 @@ const DsrDeposit = ({ savings, reset }) => {
           disabled={!hasAllowance}
           type="number"
           min="0"
-          placeholder="0 DAI"
+          placeholder="0 USDV"
           value={depositAmount}
           onChange={onDepositAmountChange}
           error={depositAmountErrors}
@@ -101,7 +101,7 @@ const DsrDeposit = ({ savings, reset }) => {
         />
       </Grid>
       <ProxyAllowanceToggle
-        token="DAI"
+        token="USDV"
         onlyShowAllowance={true}
         trackBtnClick={trackBtnClick}
       />
@@ -131,12 +131,15 @@ const DsrDeposit = ({ savings, reset }) => {
       </Grid>
       <InfoContainer>
         <Info
-          title={lang.action_sidebar.dai_balance}
-          body={`${safeToFixed(daiBalance, 7)} ${displaySymbol}`}
+          title={lang.action_sidebar.usdv_balance}
+          body={`${safeToFixed(usdvBalance, 7)} ${displaySymbol}`}
         />
         <Info
           title={lang.action_sidebar.locked_dsr}
-          body={`${safeToFixed(daiLockedInDsr.toNumber(), 7)} ${displaySymbol}`}
+          body={`${safeToFixed(
+            usdvLockedInDsr.toNumber(),
+            7
+          )} ${displaySymbol}`}
         />
       </InfoContainer>
     </Grid>

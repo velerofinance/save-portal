@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { BAT, USD, DAI } from '@makerdao/dai-plugin-mcd';
 import { createCurrencyRatio } from '@makerdao/currency';
 import { TestAccountProvider, mineBlocks } from '@makerdao/test-helpers';
-import * as math from '@makerdao/dai-plugin-mcd/dist/math';
+import * as math from '@makerdao/dai-plugin-mcd/src/math';
 import waitForExpect from 'wait-for-expect';
 
 import Payback from '../Payback';
@@ -21,7 +21,7 @@ jest.mock('react-navi', () => ({
   useCurrentRoute: () => ({ url: { pathname: '/test' } })
 }));
 
-const ILK = 'ETH-A';
+const ILK = 'VLX-A';
 const LIQUIDATION_RATIO = '200';
 const COL_AMT = 300.123456789012345678;
 

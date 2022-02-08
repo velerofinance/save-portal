@@ -11,7 +11,7 @@ const useWalletBalances = () => {
 
   const { account } = useMaker();
   const symbols = showWalletTokens.filter(v => v !== 'DSR');
-  const dsrBalance = watch.daiLockedInDsr(account?.address);
+  const dsrBalance = watch.usdvLockedInDsr(account?.address);
   const tokenBalances = watch.tokenBalances(account?.address, symbols);
   return (
     tokenBalances?.reduce(

@@ -67,8 +67,8 @@ test('should send 1 BAT successfully', async () => {
   });
 });
 
-test('basic rendering when sending ETH', async () => {
-  const token = 'ETH';
+test('basic rendering when sending VLX', async () => {
+  const token = 'VLX';
   const { getByText } = render(<Send token={token} />);
 
   await waitFor(() =>
@@ -91,8 +91,8 @@ test('basic rendering when sending DAI', async () => {
   getByText(lang.formatString(lang.action_sidebar.send_description, token));
 });
 
-test('basic rendering when sending WETH', async () => {
-  const token = 'WETH';
+test('basic rendering when sending WVLX', async () => {
+  const token = 'WVLX';
   let getByText;
   act(() => {
     const { getByText: _getByText } = render(<Send token={token} />);

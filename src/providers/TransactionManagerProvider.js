@@ -30,20 +30,20 @@ const formatTxMessage = (lang, { metadata, ...tx }, state) => {
   switch (type) {
     case 'safeWipe':
       return lang.formatString(
-        `${lang[langKey].pay_back_dai}${suffix}`,
+        `${lang[langKey].pay_back_usdv}${suffix}`,
         <ValueText>{formatAmount(metadata.wipeAmount)}</ValueText>
       );
     case 'safeWipeAll':
       return lang.formatString(
-        `${lang[langKey].pay_back_dai}${suffix}`,
+        `${lang[langKey].pay_back_usdv}${suffix}`,
         'outstanding'
       );
     case 'draw':
       return lang.formatString(
-        `${lang[langKey].generate_dai}${suffix}`,
+        `${lang[langKey].generate_usdv}${suffix}`,
         <ValueText>{formatAmount(metadata.drawAmount)}</ValueText>
       );
-    case 'safeLockETH':
+    case 'safeLockVLX':
     case 'safeLockGem':
       return lang.formatString(
         `${lang[langKey].depositing_gem}${suffix}`,
@@ -52,7 +52,7 @@ const formatTxMessage = (lang, { metadata, ...tx }, state) => {
           {metadata.lockAmount.symbol}
         </>
       );
-    case 'wipeAndFreeETH':
+    case 'wipeAndFreeVLX':
     case 'wipeAndFreeGem':
       return lang.formatString(
         `${lang[langKey].withdrawing_gem}${suffix}`,
@@ -61,13 +61,13 @@ const formatTxMessage = (lang, { metadata, ...tx }, state) => {
           {metadata.freeAmount.symbol}
         </>
       );
-    case 'openLockETHAndDraw':
+    case 'openLockVLXAndDraw':
     case 'openLockGemAndDraw':
       return lang.formatString(
         `${lang[langKey].creating_cdp}${suffix}`
         // <><ValueText>{formatAmount(metadata.lockAmount)}</ValueText> {(lockAmount.symbol)}</>
       );
-    case 'lockETHAndDraw':
+    case 'lockVLXAndDraw':
     case 'lockGemAndDraw':
       return lang.formatString(
         `${lang[langKey].deposit_generate}${suffix}`,
@@ -94,27 +94,27 @@ const formatTxMessage = (lang, { metadata, ...tx }, state) => {
     case 'approve':
       return lang.formatString(
         `${lang[langKey].unlocking_token}${suffix}`,
-        metadata.contract === 'MCD_DAI' ? 'DAI' : 'token'
+        metadata.contract === 'MCD_USDV' ? 'USDV' : 'token'
       );
     case 'join':
       if (metadata.contract === 'PROXY_ACTIONS_DSR')
         return lang.formatString(
           `${lang[langKey].depositing_gem}${suffix}`,
-          'DAI'
+          'USDV'
         );
       else return '?';
     case 'exit':
       if (metadata.contract === 'PROXY_ACTIONS_DSR')
         return lang.formatString(
           `${lang[langKey].withdrawing_gem}${suffix}`,
-          'DAI'
+          'USDV'
         );
       else return '?';
     case 'exitAll':
       if (metadata.contract === 'PROXY_ACTIONS_DSR')
         return lang.formatString(
           `${lang[langKey].withdrawing_gem}${suffix}`,
-          'all DAI'
+          'all USDV'
         );
       else return '?';
     case 'frob':

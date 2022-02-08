@@ -8,7 +8,6 @@ import {
 
 import SidebarGlobal from './Sidebars/Global';
 import AccountBox from './AccountBox';
-import BorrowNav from 'components/BorrowNav';
 import SaveNav from 'components/SaveNav';
 import TradeNav from 'components/TradeNav';
 
@@ -90,19 +89,12 @@ const MobileNav = ({ viewedAddress }) => {
           borderRadius="4px"
           ml="xs"
         />
-        <BorrowNav
-          width={`${getMeasurement('navbarWidth')}px`}
-          viewedAddress={viewedAddress}
-          account={account}
-          mobile={true}
-          borderRadius="4px"
-          ml="xs"
-        />
-        <TradeNav
-          borderRadius="4px"
-          width={`${getMeasurement('navbarWidth')}px`}
-          ml="xs"
-        />
+
+        {/*<TradeNav*/}
+        {/*  borderRadius="4px"*/}
+        {/*  width={`${getMeasurement('navbarWidth')}px`}*/}
+        {/*  ml="xs"*/}
+        {/*/>*/}
       </Flex>
       <Flex alignItems="center" justifyContent="center">
         <SidebarDrawerTrigger
