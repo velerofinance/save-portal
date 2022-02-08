@@ -70,7 +70,9 @@ function MakerProvider({
       !browserProvider.address ||
       !browserProvider.address.match(/^0x[a-fA-F0-9]{40}$/)
     )
-      console.log(`browser velas provider providing incorrect or non-existent address ${browserProvider.address}`);
+      console.log(
+        `browser velas provider providing incorrect or non-existent address ${browserProvider.address}`
+      );
 
     let existingAccount;
     if (maker.service('accounts').hasAccount()) {
