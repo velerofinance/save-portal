@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-navi';
+import { Link, useCurrentRoute, useNavigation } from 'react-navi';
 import styled from 'styled-components';
 import { Flex, Text } from '@makerdao/ui-components-core';
 
@@ -28,7 +28,9 @@ const SaveNav = ({ account, ...props }) => {
       ? 'black'
       : 'gray';
 
-  const saveUrl = 'https://oasis.app/dashboard';
+  const { basename } = useNavigation();
+  const { url } = useCurrentRoute();
+  const saveUrl = `${basename}/save${url.search}`;
   return (
     <Link href={saveUrl}>
       <Flex

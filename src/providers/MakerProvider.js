@@ -64,13 +64,13 @@ function MakerProvider({
       throw new Error(
         'browser velas provider and URL network param do not match.'
       );
+    console.log('browserProvider');
+    console.log(browserProvider);
     if (
       !browserProvider.address ||
       !browserProvider.address.match(/^0x[a-fA-F0-9]{40}$/)
     )
-      throw new Error(
-        'browser velas provider providing incorrect or non-existent address'
-      );
+      console.log(`browser velas provider providing incorrect or non-existent address ${browserProvider.address}`);
 
     let existingAccount;
     if (maker.service('accounts').hasAccount()) {
