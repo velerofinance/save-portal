@@ -67,8 +67,8 @@ export const etherscanLink = (string, network = 'velas') => {
 export async function checkEthereumProvider() {
   let provider;
   if (typeof window.ethereum !== 'undefined') {
-    // await window.ethereum.enable();
-    await window.eth_requestAccounts;
+    await window.ethereum.enable();
+    // await window.eth_requestAccounts;
     provider = window.ethereum;
   } else if (window.web3) {
     provider = window.web3.currentProvider;

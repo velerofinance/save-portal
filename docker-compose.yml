@@ -1,0 +1,9 @@
+version: '3'
+services:
+  web:
+    build: .
+    container_name: save-portal
+    command: nginx -g 'daemon off;'
+    ports:
+    - "3005:80"
+    restart: unless-stopped
