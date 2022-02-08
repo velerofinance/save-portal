@@ -30,7 +30,6 @@ const BorrowNav = ({ viewedAddress, account, mobile, ...props }) => {
     ? viewedAddress
     : null;
 
-
   const textColor =
     selected && account
       ? 'white'
@@ -41,7 +40,8 @@ const BorrowNav = ({ viewedAddress, account, mobile, ...props }) => {
       : 'gray';
   return (
     <Fragment>
-      { <Link href={`https://vaults.velero.finance/${url.search}`}>
+      {
+        <Link href={`https://vaults.velero.finance/${url.search}`}>
           <Flex
             bg={!account && selected && 'grey.200'}
             flexDirection="column"

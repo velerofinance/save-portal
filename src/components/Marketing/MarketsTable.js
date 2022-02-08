@@ -204,7 +204,10 @@ const MarketsTable = ({ cdpTypesList, ...props }) => {
           const usdvAvailableList = cdpTypesData.map(
             data => data.maxUsdvAvailableToGenerate
           );
-          const totalUsdvAvailable = BigNumber.sum.apply(null, usdvAvailableList);
+          const totalUsdvAvailable = BigNumber.sum.apply(
+            null,
+            usdvAvailableList
+          );
 
           const uniPair = parseUniPair(
             gem,

@@ -136,7 +136,10 @@ const DsrDeposit = ({ savings, reset }) => {
         />
         <Info
           title={lang.action_sidebar.locked_dsr}
-          body={`${safeToFixed(usdvLockedInDsr.toNumber(), 7)} ${displaySymbol}`}
+          body={`${safeToFixed(
+            usdvLockedInDsr.toNumber(),
+            7
+          )} ${displaySymbol}`}
         />
       </InfoContainer>
     </Grid>

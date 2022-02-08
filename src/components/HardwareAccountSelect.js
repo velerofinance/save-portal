@@ -107,37 +107,35 @@ function HardwareAccountSelect({ type, path, onClose, confirmAddress }) {
             </tr>
           </thead>
           <tbody>
-            {renderedAccounts.map(
-              ({ address, vlxBalance }, index) => (
-                <tr key={address}>
-                  <td>
-                    <Flex justifyContent="center">
-                      <input
-                        type="radio"
-                        name="address"
-                        value={index}
-                        checked={address === selectedAddress}
-                        onChange={() => setSelectedAddress(address)}
-                      />
-                    </Flex>
-                  </td>
-                  <td>
-                    <Box pr="m" textAlign="center">
-                      {page * ACCOUNTS_PER_PAGE + (index + 1)}
-                    </Box>
-                  </td>
-                  <td>
-                    <Flex alignItems="center">
-                      {cutMiddle(address, 7, 5)}
-                      <CopyBtn onClick={() => copyToClipboard(address)}>
-                        <CopyBtnIcon />
-                      </CopyBtn>
-                    </Flex>
-                  </td>
-                  <td>{vlxBalance} VLX</td>
-                </tr>
-              )
-            )}
+            {renderedAccounts.map(({ address, vlxBalance }, index) => (
+              <tr key={address}>
+                <td>
+                  <Flex justifyContent="center">
+                    <input
+                      type="radio"
+                      name="address"
+                      value={index}
+                      checked={address === selectedAddress}
+                      onChange={() => setSelectedAddress(address)}
+                    />
+                  </Flex>
+                </td>
+                <td>
+                  <Box pr="m" textAlign="center">
+                    {page * ACCOUNTS_PER_PAGE + (index + 1)}
+                  </Box>
+                </td>
+                <td>
+                  <Flex alignItems="center">
+                    {cutMiddle(address, 7, 5)}
+                    <CopyBtn onClick={() => copyToClipboard(address)}>
+                      <CopyBtnIcon />
+                    </CopyBtn>
+                  </Flex>
+                </td>
+                <td>{vlxBalance} VLX</td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       </div>

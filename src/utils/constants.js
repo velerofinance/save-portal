@@ -55,7 +55,7 @@ export const VendorErrors = {
 
 export const TokenNames = {
   VLX: 'Velas',
-  WAG: 'Wagyu',
+  WAG: 'Wagyu'
 };
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';

@@ -147,8 +147,7 @@ const WalletBalances = ({ hasActiveAccount, closeSidebarDrawer }) => {
         if (token !== 'VLX' && token !== 'USDV' && !balanceGtZero) return acc;
         const symbol = token;
 
-        const tokenIsUsdvOrDsr =
-          token === 'USDV' || token === 'DSR';
+        const tokenIsUsdvOrDsr = token === 'USDV' || token === 'DSR';
         const usdRatio = tokenIsUsdvOrDsr
           ? new BigNumber(1)
           : token === 'WVLX'

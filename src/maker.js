@@ -25,7 +25,7 @@ let _maker;
 
 const otherNetworksOverrides = [
   { network: 'velas', contracts: velasAddresses },
-  { network: 'velastestnet', contracts: velastestnetAddresses },
+  { network: 'velastestnet', contracts: velastestnetAddresses }
 ].reduce((acc, { network, contracts }) => {
   for (const [contractName, contractAddress] of Object.entries(contracts)) {
     if (!acc[contractName]) acc[contractName] = {};

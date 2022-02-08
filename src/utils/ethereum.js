@@ -60,7 +60,8 @@ export const etherscanLink = (string, network = 'velas') => {
     return `https://${pathPrefix}evmexplorer.velas.com/address/${string}`;
   else if (isValidTxString(string))
     return `https://${pathPrefix}evmexplorer.velas.com/tx/${string}`;
-  else throw new Error(`Can't create evmexplorer.velas.com link for "${string}"`);
+  else
+    throw new Error(`Can't create evmexplorer.velas.com link for "${string}"`);
 };
 
 export async function checkEthereumProvider() {

@@ -329,8 +329,7 @@ const cdpTypesMetaData = {
     colRatio: 200,
     amountRange: [200, 70000],
     amountStart: 600
-  },
-
+  }
 };
 
 const BorrowCalculator = ({ prices, cdpTypesList, ...props }) => {

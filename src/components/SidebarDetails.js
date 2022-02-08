@@ -26,9 +26,11 @@ const SidebarDetails = ({ system, savings }) => {
       : ''
   ];
 
-  const params = [TOTAL_USDV_SUPPLY, TOTAL_SAVINGS_USDV, USDV_SAVINGS_RATE].map(
-    f => f({ system, savings })
-  );
+  const params = [
+    TOTAL_USDV_SUPPLY,
+    TOTAL_SAVINGS_USDV,
+    USDV_SAVINGS_RATE
+  ].map(f => f({ system, savings }));
 
   return (
     <Card css={'overflow:hidden;'} pt="2xs">

@@ -14,7 +14,7 @@ import { parseUniPair } from 'utils/ui';
 const iconsByToken = {
   USDV: UsdvIcon,
   VLX: VlxIcon,
-  WAG: WagIcon,
+  WAG: WagIcon
 };
 
 const UniPairIconStyle = styled.div`

@@ -21,7 +21,11 @@ import RatioDisplay, { RatioDisplayTypes } from 'components/RatioDisplay';
 
 const { long } = decimalRules;
 
-export function calcUsdvAvailable(collateralValue, debtValue, liquidationRatio) {
+export function calcUsdvAvailable(
+  collateralValue,
+  debtValue,
+  liquidationRatio
+) {
   const maxSafeDebtValue = collateralValue.div(liquidationRatio);
   return debtValue.lt(maxSafeDebtValue)
     ? USDV(maxSafeDebtValue.minus(debtValue))
@@ -220,7 +224,9 @@ const DepositAndGenerate = ({ vault, reset }) => {
         />
         <Info
           title={lang.action_sidebar.maximum_available_to_generate}
-          body={`${formatter(calculatedUsdvAvailable, { precision: long })} USDV`}
+          body={`${formatter(calculatedUsdvAvailable, {
+            precision: long
+          })} USDV`}
         />
         <Info
           title={lang.action_sidebar.new_liquidation_price}
