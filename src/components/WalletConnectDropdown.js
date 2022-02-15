@@ -202,83 +202,83 @@ const WalletConnectDropdown = ({ trigger, close = () => {}, ...props }) => {
             )}
           </Option>
         )}
-        <BrowserView>
-          <Option
-            onClick={() => {
-              connectLedgerWallet();
-              close();
-            }}
-            icon={<StyledLedgerLogo />}
-          >
-            {lang.formatString(lang.connect_to, 'Ledger Nano')}
-          </Option>
-        </BrowserView>
-        <BrowserView>
-          <Option
-            onClick={() => {
-              connectTrezorWallet();
-              close();
-            }}
-            icon={<StyledTrezorLogo />}
-          >
-            {lang.formatString(lang.connect_to, 'Trezor')}
-          </Option>
-        </BrowserView>
-        <BrowserView>
-          <Option
-            onClick={() => {
-              connectToProviderOfType(AccountTypes.WALLETCONNECT);
-              close();
-            }}
-            icon={<StyledWalletConnectLogo style={{ width: '26.67px' }} />}
-          >
-            {lang.landing_page.wallet_connect}
-          </Option>
-        </BrowserView>
-        <BrowserView>
-          <Option
-            onClick={() => {
-              connectToProviderOfType(AccountTypes.MEWCONNECT);
-              close();
-            }}
-            icon={<MewConnectLogo />}
-          >
-            {lang.providers.mewconnect}
-          </Option>
-        </BrowserView>
-        <BrowserView>
-          <Option
-            onClick={() => {
-              connectToProviderOfType(AccountTypes.WALLETLINK);
-              close();
-            }}
-            icon={<StyledWalletLinkLogo />}
-          >
-            {lang.landing_page.wallet_link}
-          </Option>
-        </BrowserView>
-        <BrowserView>
-          <Option
-            onClick={() => {
-              connectDcentWallet();
-              close();
-            }}
-            icon={<StyledDcentLogo />}
-          >
-            {lang.providers.dcent}
-          </Option>
-        </BrowserView>
-        <BrowserView>
-          <Option
-            onClick={() => {
-              connectToProviderOfType(AccountTypes.PORTIS);
-              close();
-            }}
-            icon={<PortisLogo />}
-          >
-            {lang.providers.portis}
-          </Option>
-        </BrowserView>
+        {/*<BrowserView>*/}
+        {/*  <Option*/}
+        {/*    onClick={() => {*/}
+        {/*      connectLedgerWallet();*/}
+        {/*      close();*/}
+        {/*    }}*/}
+        {/*    icon={<StyledLedgerLogo />}*/}
+        {/*  >*/}
+        {/*    {lang.formatString(lang.connect_to, 'Ledger Nano')}*/}
+        {/*  </Option>*/}
+        {/*</BrowserView>*/}
+        {/*<BrowserView>*/}
+        {/*  <Option*/}
+        {/*    onClick={() => {*/}
+        {/*      connectTrezorWallet();*/}
+        {/*      close();*/}
+        {/*    }}*/}
+        {/*    icon={<StyledTrezorLogo />}*/}
+        {/*  >*/}
+        {/*    {lang.formatString(lang.connect_to, 'Trezor')}*/}
+        {/*  </Option>*/}
+        {/*</BrowserView>*/}
+        {/*<BrowserView>*/}
+        {/*  <Option*/}
+        {/*    onClick={() => {*/}
+        {/*      connectToProviderOfType(AccountTypes.WALLETCONNECT);*/}
+        {/*      close();*/}
+        {/*    }}*/}
+        {/*    icon={<StyledWalletConnectLogo style={{ width: '26.67px' }} />}*/}
+        {/*  >*/}
+        {/*    {lang.landing_page.wallet_connect}*/}
+        {/*  </Option>*/}
+        {/*</BrowserView>*/}
+        {/*<BrowserView>*/}
+        {/*  <Option*/}
+        {/*    onClick={() => {*/}
+        {/*      connectToProviderOfType(AccountTypes.MEWCONNECT);*/}
+        {/*      close();*/}
+        {/*    }}*/}
+        {/*    icon={<MewConnectLogo />}*/}
+        {/*  >*/}
+        {/*    {lang.providers.mewconnect}*/}
+        {/*  </Option>*/}
+        {/*</BrowserView>*/}
+        {/*<BrowserView>*/}
+        {/*  <Option*/}
+        {/*    onClick={() => {*/}
+        {/*      connectToProviderOfType(AccountTypes.WALLETLINK);*/}
+        {/*      close();*/}
+        {/*    }}*/}
+        {/*    icon={<StyledWalletLinkLogo />}*/}
+        {/*  >*/}
+        {/*    {lang.landing_page.wallet_link}*/}
+        {/*  </Option>*/}
+        {/*</BrowserView>*/}
+        {/*<BrowserView>*/}
+        {/*  <Option*/}
+        {/*    onClick={() => {*/}
+        {/*      connectDcentWallet();*/}
+        {/*      close();*/}
+        {/*    }}*/}
+        {/*    icon={<StyledDcentLogo />}*/}
+        {/*  >*/}
+        {/*    {lang.providers.dcent}*/}
+        {/*  </Option>*/}
+        {/*</BrowserView>*/}
+        {/*<BrowserView>*/}
+        {/*  <Option*/}
+        {/*    onClick={() => {*/}
+        {/*      connectToProviderOfType(AccountTypes.PORTIS);*/}
+        {/*      close();*/}
+        {/*    }}*/}
+        {/*    icon={<PortisLogo />}*/}
+        {/*  >*/}
+        {/*    {lang.providers.portis}*/}
+        {/*  </Option>*/}
+        {/*</BrowserView>*/}
         {account && (
           <BrowserView>
             <Option

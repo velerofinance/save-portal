@@ -3,7 +3,7 @@
 ![Build Workflow](https://github.com/OasisDex/mcd-cdp-portal//actions/workflows/aws-prod.yml/badge.svg)
 
 
-## The official Velero dapp for managing Vaults and generating Usdv
+## The official Velero dapp for managing Vaults and generating USDV
 
 ### Prerequisites
 

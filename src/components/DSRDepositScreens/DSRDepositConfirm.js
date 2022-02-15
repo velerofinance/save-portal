@@ -83,7 +83,7 @@ const DSRDepositConfirmSummary = ({
           <Text color="grey.500">
             {lang.formatString(
               lang.terms_of_service_text,
-              <Link href="https://oasis.app/terms" target="_blank">
+              <Link href="https://vaults.velero.finance/terms" target="_blank">
                 {lang.terms_of_service}
               </Link>
             )}

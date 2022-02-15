@@ -304,8 +304,8 @@ function AccountSelection({ width = '213px', ...props }) {
     </IconItem>
   );
 
-  const mainWallets = [ledger, trezor];
-  const otherWallets = [walletLink, mewConnect, walletConnect, dcent, portis];
+  const mainWallets = [];
+  const otherWallets = [];
 
   const mainWalletsCount = mainWallets.length + 1; // Add the browser provider wallet
 

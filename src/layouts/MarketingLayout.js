@@ -364,10 +364,10 @@ const MarketingLayout = ({
               </Flex>
             )}
             <Nav className="legal-nav">
-              <Link href={'https://oasis.app/privacy'}>
+              <Link href={'https://vaults.velero.finance/privacy'}>
                 {lang.navbar.privacy}
               </Link>
-              <Link href={'https://oasis.app/terms'}>{lang.navbar.terms}</Link>
+              <Link href={'https://vaults.velero.finance//terms'}>{lang.navbar.terms}</Link>
               {extraLegalLinks.map(link => (
                 <Link
                   href={link.url}

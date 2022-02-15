@@ -1,6 +1,6 @@
 {
   "name": "save-portal",
-  "description": "The primary web interface for interacting with the Multi-Collateral Usdv smart contract system.",
+  "description": "The primary web interface for interacting with the Multi-Collateral USDV smart contract system.",
   "version": "0.2.6-rc.1",
   "license": "AGPL",
   "private": true,
